@@ -1,0 +1,4 @@
+$my_tele2_group $mol_list
+	rows /
+		<= Title $mol_view sub / <= title
+		<= Params $mol_list rows <= params /

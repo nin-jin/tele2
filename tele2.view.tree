@@ -1,17 +1,24 @@
 $my_tele2 $mol_page
 	title \Настрой Tele2 под себя
+	tools /
+		<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
 	body /
 		<= Settings $mol_form
-			form_fields /
-				<= Price $mol_form_field
-					name <= price_label @ \Цена
-					bid <= price_bid \
-					control <= price_control $mol_switch
-						value?val <=> price?val \low
-						options <= price_options *
-							low <= price_option_low @ \Дёшево
-							mid <= sex_option_mid @ \Нормально
-							high <= sex_option_high @ \Дорого
-			buttons /
+			sub /
+				<= Groups $mol_row sub <= groups /$my_tele2_group
 				<= Order $mol_button_major
-					title \Подключить за 10р в день
+					title <= order_title \Подключить за {total}₽ в день
+	-
+	Group!id $my_tele2_group
+		title <= group_title!id \
+		params <= group_params!id /
+	-
+	Param_switch!id $mol_form_field
+		name <= param_title!id \
+		control <= Param_switch_control!id $mol_switch
+			value?val <=> param_string!id?val \
+			options <= param_options!id *
+	-
+	Param_flag!id $mol_check_box
+		title <= param_title!id \
+		checked?val <=> param_flag!id?val false
