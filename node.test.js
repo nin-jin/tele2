@@ -5689,7 +5689,7 @@ var $;
     (function ($$) {
         class $my_tele2 extends $.$my_tele2 {
             tarif() {
-                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json('-/my/tele2/personal.tarif.json'));
+                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json('my/tele2/personal.tarif.json'));
             }
             groups() {
                 return Object.keys(this.tarif()).map(id => this.Group(id));
