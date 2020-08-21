@@ -1,0 +1,48 @@
+{
+	"main": {
+		"title": { "ru": "Основные параметры" },
+		"icon": "",
+		"param": {
+			"mobile": {
+				"title": { "ru": "Звонки" },
+				"unit": { "ru": "минут/день" },
+				"icon": "",
+				"default": "20",
+				"option": {
+					"20": { "title": "20", "cost": 5 },
+					"40": { "title": "40", "cost": 10 },
+					"60": { "title": "60", "cost": 15 },
+					"120": { "title": "120", "cost": 20 }
+				}
+			},
+			"internet": {
+				"title": { "ru": "Интернет" },
+				"unit": { "ru": "мегабайт/день" },
+				"icon": "",
+				"default": "100",
+				"option": {
+					"100": { "title": "100", "cost": 5 },
+					"500": { "title": "500", "cost": 10 },
+					"1000": { "title": "1000", "cost": 15 },
+					"2000": { "title": "2000", "cost": 20 }
+				}
+			}
+		}
+	},
+	"social": {
+		"title": { "ru": "Безлимит на соцсети" },
+		"icon": "",
+		"param": {
+			"facebook": {
+				"title": { "ru": "Фейсбук" },
+				"icon": "",
+				"cost": 10
+			},
+			"vkontakte": {
+				"title": { "ru": "Вконтакте" },
+				"icon": "",
+				"cost": 10
+			}
+		}
+	}
+}

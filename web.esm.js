@@ -5317,7 +5317,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/tele2/tele2.view.css", "");
+    $.$mol_style_attach("my/tele2/tele2.view.css", "[my_tele2_groups] {\n\tmargin: auto;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
 ;
@@ -5328,7 +5328,7 @@ var $;
     (function ($$) {
         class $my_tele2 extends $.$my_tele2 {
             tarif() {
-                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json('../personal.tarif.json'));
+                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json('-/my/tele2/personal.tarif.json'));
             }
             groups() {
                 return Object.keys(this.tarif()).map(id => this.Group(id));
@@ -5359,7 +5359,11 @@ var $;
                 }
             }
             param_title(id) {
-                return this.$.$my_tele2_locale(this.params()[id].title);
+                const param = this.params()[id];
+                let title = this.$.$my_tele2_locale(param.title);
+                if (param.unit)
+                    title += ` (${this.$.$my_tele2_locale(param.unit)})`;
+                return title;
             }
             param_options(id) {
                 const options = {};
