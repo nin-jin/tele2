@@ -1,3 +1,11 @@
+[my_tele2_logo] {
+	width: 40px;
+}
+
+[my_tele2_title] {
+	justify-content: center;
+}
+
 [my_tele2_groups] {
 	margin: auto;
 }

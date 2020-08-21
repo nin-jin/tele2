@@ -1,5 +1,9 @@
 $my_tele2 $mol_page
 	title \Настрой Tele2 под себя
+	head /
+		<= Logo $mol_image uri \my/tele2/logo/logo_128.png
+		<= Title
+		<= Tools
 	tools /
 		<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
 	body /
