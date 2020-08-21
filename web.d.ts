@@ -1123,6 +1123,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_image extends $mol_view {
+        dom_name(): string;
+        field(): {
+            src: string;
+            alt: string;
+        };
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_link extends $mol_view {
         dom_name(): string;
         attr(): {
@@ -1653,6 +1667,8 @@ declare namespace $ {
 declare namespace $ {
     class $my_tele2 extends $mol_page {
         title(): string;
+        head(): readonly any[];
+        Logo(): $mol_image;
         tools(): readonly any[];
         Source(): $mol_link_source;
         body(): readonly any[];
