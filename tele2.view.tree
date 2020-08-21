@@ -1,0 +1,17 @@
+$my_tele2 $mol_page
+	title \Настрой Tele2 под себя
+	body /
+		<= Settings $mol_form
+			form_fields /
+				<= Price $mol_form_field
+					name <= price_label @ \Цена
+					bid <= price_bid \
+					control <= price_control $mol_switch
+						value?val <=> price?val \low
+						options <= price_options *
+							low <= price_option_low @ \Дёшево
+							mid <= sex_option_mid @ \Нормально
+							high <= sex_option_high @ \Дорого
+			buttons /
+				<= Order $mol_button_major
+					title \Подключить за 10р в день
