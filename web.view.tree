@@ -1,0 +1,155 @@
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keypress?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_or_error <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+
+$mol_scroll $mol_view
+	minimal_height 0
+	_event_scroll_timer?val null
+	field *
+		^
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		tabIndex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
+
+$mol_page $mol_view
+	sub /
+		<= Head $mol_view
+			sub <= head /
+				<= Title $mol_button
+					sub /
+						<= title
+					event_click?val <=> event_top?val null
+				<= Tools $mol_view
+					sub <= tools /$mol_view_content
+		<= Body $mol_scroll
+			scroll_top?val <=> body_scroll_top?val 0
+			sub <= body /$mol_view_content
+		<= Foot $mol_view
+			sub <= foot /$mol_view
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0.5
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
+
+$mol_labeler $mol_list
+	rows /
+		<= Title $mol_view
+			minimal_height 21
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
+$mol_row $mol_view
+
+$mol_form $mol_view
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	sub /
+		<= Bar_fields $mol_view
+			sub <= form_fields /$mol_form_field
+		<= Bar_buttons $mol_row
+			sub <= buttons /$mol_view
+
+$mol_button_typed $mol_button
+
+$mol_button_minor $mol_button_typed
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_switch $mol_view
+	minimal_height 40
+	Option!id $mol_switch_option
+		checked?val <=> option_checked!id?val false
+		label <= option_label!id / <= option_title!id \
+		enabled <= option_enabled!id <= enabled true
+	value?val null
+	options *
+	keys /string
+	sub <= items /$mol_check
+
+$mol_switch_option $mol_check
+	minimal_height 24
+	attr *
+		^
+		mol_theme <= theme \
+
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
+$my_tele2 $mol_page
+	title \Настрой Tele2 под себя
+	body /
+		<= Settings $mol_form
+			form_fields /
+				<= Price $mol_form_field
+					name <= price_label @ \Цена
+					bid <= price_bid \
+					control <= price_control $mol_switch
+						value?val <=> price?val \low
+						options <= price_options *
+							low <= price_option_low @ \Дёшево
+							mid <= sex_option_mid @ \Нормально
+							high <= sex_option_high @ \Дорого
+			buttons /
+				<= Order $mol_button_major
+					title \Подключить за 10р в день
