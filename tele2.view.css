@@ -1,0 +1,25 @@
+[my_tele2_groups] {
+	margin: auto;
+}
+
+[my_tele2_group] {
+	margin: 0;
+}
+
+[my_tele2_group_title] {
+	padding: 0 .75rem;
+}
+
+[my_tele2_group_params] {
+	display: flex;
+	flex-direction: column;
+	padding: .75rem 0;
+}
+
+[my_tele2_param_switch] {
+	padding: .5rem .75rem;
+}
+
+[my_tele2_order] {
+	margin: auto;
+}

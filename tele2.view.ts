@@ -51,7 +51,13 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		param_title( id : string ) {
-			return this.$.$my_tele2_locale( this.params()[ id ].title )
+			
+			const param = this.params()[ id ]
+			
+			let title = this.$.$my_tele2_locale( param.title )
+			if( param.unit ) title += ` (${ this.$.$my_tele2_locale( param.unit ) })`
+			
+			return title
 		}
 		
 		@ $mol_mem_key
