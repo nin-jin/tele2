@@ -4,7 +4,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		tarif() {
-			return $my_tele2_tarif_scheme( this.$.$mol_fetch.json('../personal.tarif.json') )
+			return $my_tele2_tarif_scheme( this.$.$mol_fetch.json('-/my/tele2/personal.tarif.json') )
 		}
 
 		@ $mol_mem

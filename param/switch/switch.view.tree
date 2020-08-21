@@ -1,5 +1,0 @@
-$my_tele2_param $mol_form_field
-	name <= title \
-	control <= Switch $mol_switch
-		value?val <=> value?val \
-		options <= options
