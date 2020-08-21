@@ -1123,106 +1123,58 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_list extends $mol_view {
-        render_visible_only(): boolean;
-        render_over(): number;
-        sub(): readonly $mol_view[];
-        rows(): readonly $mol_view[];
-        Empty(): $mol_view;
-        Gap_before(): $mol_view;
-        gap_before(): number;
-        Gap_after(): $mol_view;
-        gap_after(): number;
-        view_window(): readonly any[];
-    }
-}
-
-declare namespace $ {
-    class $mol_dom_listener extends $mol_object {
-        _node: any;
-        _event: string;
-        _handler: (event: any) => any;
-        _config: boolean | {
-            passive: boolean;
+    class $mol_link extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            href: string;
+            title: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+            mol_theme: any;
         };
-        constructor(_node: any, _event: string, _handler: (event: any) => any, _config?: boolean | {
-            passive: boolean;
-        });
-        destructor(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_print extends $mol_object {
-        static before(): $mol_dom_listener;
-        static after(): $mol_dom_listener;
-        static active(next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_list extends $.$mol_list {
-        sub(): readonly $mol_view[];
-        render_visible_only(): boolean;
-        view_window(): [number, number];
-        gap_before(): number;
-        gap_after(): number;
-        sub_visible(): $mol_view[];
-        minimal_height(): number;
-    }
-}
-
-declare namespace $ {
-    class $mol_labeler extends $mol_list {
-        rows(): readonly any[];
-        Title(): $mol_view;
-        label(): readonly $mol_view_content[];
-        Content(): $mol_view;
-        content(): readonly any[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_form_field extends $mol_labeler {
-        label(): readonly any[];
-        name(): string;
-        Bid(): $mol_view;
-        bid(): string;
-        Content(): any;
-        control(): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_form extends $mol_view {
-        submit_blocked(): boolean;
+        uri(): string;
+        hint(): string;
+        target(): string;
+        file_name(): string;
+        current(): boolean;
+        theme(): any;
+        sub(): readonly $mol_view_content[];
+        arg(): {};
         event(): {
-            keydown: (event?: any) => any;
+            click: (event?: any) => any;
         };
-        keydown(event?: any, force?: $mol_mem_force): any;
-        submit(event?: any, force?: $mol_mem_force): any;
-        sub(): readonly any[];
-        Bar_fields(): $mol_view;
-        form_fields(): readonly $mol_form_field[];
-        Bar_buttons(): $mol_row;
-        buttons(): readonly $mol_view[];
+        click(event?: any, force?: $mol_mem_force): any;
+        event_click(event?: any, force?: $mol_mem_force): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static href(next?: string, force?: $mol_mem_force): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): {
+            [key: string]: string;
+        };
+        static dict_cut(except: string[]): {
+            [key: string]: string;
+        };
+        static value(key: string, next?: string | null): string | null;
+        static link(next: {
+            [key: string]: string;
+        }): string;
+        static make_link(next: {
+            [key: string]: string | null;
+        }): string;
+        static encode(str: string): string;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: {
+            [key: string]: string;
+        }): string;
     }
 }
 
@@ -1230,9 +1182,13 @@ declare namespace $ {
 }
 
 declare namespace $.$$ {
-    class $mol_form extends $.$mol_form {
-        submit_blocked(): boolean;
-        keydown(next: KeyboardEvent): void;
+    class $mol_link extends $.$mol_link {
+        uri(): string;
+        current(): boolean;
+        event_click(event?: Event): void;
+        file_name(): string;
+        minimal_height(): number;
+        theme(): "$mol_theme_base" | null;
     }
 }
 
@@ -1365,7 +1321,221 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_svg extends $mol_view {
+        dom_name(): string;
+        dom_name_space(): string;
+        font_size(): number;
+        font_family(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static now(precision?: number, next?: number): number;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): CSSStyleDeclaration;
+        font_size(): number;
+        font_family(): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_svg_root extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            viewBox: string;
+            preserveAspectRatio: string;
+        };
+        view_box(): string;
+        aspect(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_svg_path extends $mol_svg {
+        dom_name(): string;
+        attr(): {
+            d: string;
+        };
+        geometry(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon extends $mol_svg_root {
+        view_box(): string;
+        minimal_width(): number;
+        minimal_height(): number;
+        sub(): readonly any[];
+        Path(): $mol_svg_path;
+        path(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_github_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_link_source extends $mol_link {
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_github_circle;
+    }
+}
+
+declare namespace $ {
+    class $mol_list extends $mol_view {
+        render_visible_only(): boolean;
+        render_over(): number;
+        sub(): readonly $mol_view[];
+        rows(): readonly $mol_view[];
+        Empty(): $mol_view;
+        Gap_before(): $mol_view;
+        gap_before(): number;
+        Gap_after(): $mol_view;
+        gap_after(): number;
+        view_window(): readonly any[];
+    }
+}
+
+declare namespace $ {
+    class $mol_dom_listener extends $mol_object {
+        _node: any;
+        _event: string;
+        _handler: (event: any) => any;
+        _config: boolean | {
+            passive: boolean;
+        };
+        constructor(_node: any, _event: string, _handler: (event: any) => any, _config?: boolean | {
+            passive: boolean;
+        });
+        destructor(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_print extends $mol_object {
+        static before(): $mol_dom_listener;
+        static after(): $mol_dom_listener;
+        static active(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_list extends $.$mol_list {
+        sub(): readonly $mol_view[];
+        render_visible_only(): boolean;
+        view_window(): [number, number];
+        gap_before(): number;
+        gap_after(): number;
+        sub_visible(): $mol_view[];
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_labeler extends $mol_list {
+        rows(): readonly any[];
+        Title(): $mol_view;
+        label(): readonly $mol_view_content[];
+        Content(): $mol_view;
+        content(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form_field extends $mol_labeler {
+        label(): readonly any[];
+        name(): string;
+        Bid(): $mol_view;
+        bid(): string;
+        Content(): any;
+        control(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form extends $mol_view {
+        submit_blocked(): boolean;
+        event(): {
+            keydown: (event?: any) => any;
+        };
+        keydown(event?: any, force?: $mol_mem_force): any;
+        submit(event?: any, force?: $mol_mem_force): any;
+        sub(): readonly any[];
+        Bar_fields(): $mol_view;
+        form_fields(): readonly $mol_form_field[];
+        Bar_buttons(): $mol_row;
+        buttons(): readonly $mol_view[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_form extends $.$mol_form {
+        submit_blocked(): boolean;
+        keydown(next: KeyboardEvent): void;
+    }
+}
+
+declare namespace $ {
+    class $my_tele2_group extends $mol_list {
+        rows(): readonly any[];
+        Title(): $mol_view;
+        Params(): $$.$mol_list;
+        params(): readonly any[];
+    }
+}
+
+declare namespace $ {
     class $mol_button_typed extends $mol_button {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            mol_theme: string;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
     }
 }
 
@@ -1466,14 +1636,14 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_button_major extends $mol_button_typed {
-        attr(): {
-            mol_theme: string;
-            disabled: boolean;
-            role: string;
-            tabindex: number;
-            title: string;
-        };
+    class $mol_icon_tick extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_box extends $mol_check {
+        Icon(): $mol_icon_tick;
     }
 }
 
@@ -1483,23 +1653,626 @@ declare namespace $ {
 declare namespace $ {
     class $my_tele2 extends $mol_page {
         title(): string;
+        tools(): readonly any[];
+        Source(): $mol_link_source;
         body(): readonly any[];
         Settings(): $$.$mol_form;
-        Price(): $mol_form_field;
-        price_label(): string;
-        price_bid(): string;
-        price_control(): $$.$mol_switch;
-        price(val?: any, force?: $mol_mem_force): any;
-        price_options(): {
-            low: string;
-            mid: string;
-            high: string;
-        };
-        price_option_low(): string;
-        sex_option_mid(): string;
-        sex_option_high(): string;
+        Groups(): $mol_row;
+        groups(): readonly $my_tele2_group[];
         Order(): $mol_button_major;
+        order_title(): string;
+        Group(id: any): $my_tele2_group;
+        group_title(id: any): string;
+        group_params(id: any): readonly any[];
+        Param_switch(id: any): $mol_form_field;
+        param_title(id: any): string;
+        Param_switch_control(id: any): $$.$mol_switch;
+        param_string(id: any, val?: any, force?: $mol_mem_force): any;
+        param_options(id: any): {};
+        Param_flag(id: any): $mol_check_box;
+        param_flag(id: any, val?: any, force?: $mol_mem_force): any;
     }
+}
+
+declare namespace $ {
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_diff_path<Item>(...paths: Item[][]): {
+        prefix: Item[];
+        suffix: Item[][];
+    };
+}
+
+declare namespace $ {
+    class $mol_error_mix extends Error {
+        errors: Error[];
+        constructor(message: string, ...errors: Error[]);
+        toJSON(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    function $mol_data_dict<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => Readonly<Record<string, ReturnType<Sub>>>) & {
+        config: Sub;
+        Value: Readonly<Record<string, ReturnType<Sub>>>;
+    };
+}
+
+declare namespace $ {
+    let $mol_data_string: (val: string) => string;
+}
+
+declare namespace $ {
+    type $mol_type_merge<Intersection> = Intersection extends (...a: any[]) => any ? Intersection : Intersection extends new (...a: any[]) => any ? Intersection : Intersection extends object ? {
+        [Key in keyof Intersection]: $mol_type_merge<Intersection[Key]>;
+    } : Intersection;
+}
+
+declare namespace $ {
+    type $mol_type_partial_undefined<Val> = $mol_type_merge<Partial<Val> & Pick<Val, {
+        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
+    }[keyof Val]>>;
+}
+
+declare namespace $ {
+    function $mol_data_record<Sub extends Record<string, $mol_data_value<any>>>(sub: Sub): ((val: unknown) => Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>) & {
+        config: Sub;
+        Value: Readonly<$mol_type_merge<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }> & Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>;
+    };
+}
+
+declare namespace $ {
+    let $mol_data_number: (val: number) => number;
+}
+
+declare namespace $ {
+    function $mol_data_integer(val: number): number;
+}
+
+declare namespace $ {
+    function $mol_data_optional<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0] | undefined) => ReturnType<Sub> | undefined) & {
+        config: Sub;
+        Value: ReturnType<Sub> | undefined;
+    };
+}
+
+declare namespace $ {
+    let $my_tele2_tarif_locale: ((val: unknown) => Readonly<Record<string, string>>) & {
+        config: (val: string) => string;
+        Value: Readonly<Record<string, string>>;
+    };
+    let $my_tele2_tarif_option: ((val: unknown) => Readonly<{
+        title: string;
+        cost: number;
+    }>) & {
+        config: {
+            title: (val: string) => string;
+            cost: typeof $mol_data_integer;
+        };
+        Value: Readonly<{
+            title: string;
+            cost: number;
+        }>;
+    };
+    let $my_tele2_tarif_param: ((val: unknown) => Readonly<{
+        title: {
+            [x: string]: string;
+        };
+        unit?: {
+            [x: string]: string;
+        } | undefined;
+        icon: string;
+        cost?: number | undefined;
+        default?: string | undefined;
+        option?: {
+            [x: string]: {
+                readonly title: string;
+                readonly cost: number;
+            };
+        } | undefined;
+    }>) & {
+        config: {
+            title: ((val: unknown) => Readonly<Record<string, string>>) & {
+                config: (val: string) => string;
+                Value: Readonly<Record<string, string>>;
+            };
+            unit: ((val: unknown) => Readonly<Record<string, string>> | undefined) & {
+                config: ((val: unknown) => Readonly<Record<string, string>>) & {
+                    config: (val: string) => string;
+                    Value: Readonly<Record<string, string>>;
+                };
+                Value: Readonly<Record<string, string>> | undefined;
+            };
+            icon: (val: string) => string;
+            cost: ((val: number | undefined) => number | undefined) & {
+                config: typeof $mol_data_integer;
+                Value: number | undefined;
+            };
+            default: ((val: string | undefined) => string | undefined) & {
+                config: (val: string) => string;
+                Value: string | undefined;
+            };
+            option: ((val: unknown) => Readonly<Record<string, Readonly<{
+                title: string;
+                cost: number;
+            }>>> | undefined) & {
+                config: ((val: unknown) => Readonly<Record<string, Readonly<{
+                    title: string;
+                    cost: number;
+                }>>>) & {
+                    config: ((val: unknown) => Readonly<{
+                        title: string;
+                        cost: number;
+                    }>) & {
+                        config: {
+                            title: (val: string) => string;
+                            cost: typeof $mol_data_integer;
+                        };
+                        Value: Readonly<{
+                            title: string;
+                            cost: number;
+                        }>;
+                    };
+                    Value: Readonly<Record<string, Readonly<{
+                        title: string;
+                        cost: number;
+                    }>>>;
+                };
+                Value: Readonly<Record<string, Readonly<{
+                    title: string;
+                    cost: number;
+                }>>> | undefined;
+            };
+        };
+        Value: Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            unit?: {
+                [x: string]: string;
+            } | undefined;
+            icon: string;
+            cost?: number | undefined;
+            default?: string | undefined;
+            option?: {
+                [x: string]: {
+                    readonly title: string;
+                    readonly cost: number;
+                };
+            } | undefined;
+        }>;
+    };
+    let $my_tele2_tarif_group: ((val: unknown) => Readonly<{
+        title: {
+            [x: string]: string;
+        };
+        icon: string;
+        param: {
+            [x: string]: {
+                readonly title: {
+                    [x: string]: string;
+                };
+                readonly unit?: {
+                    [x: string]: string;
+                } | undefined;
+                readonly icon: string;
+                readonly cost?: number | undefined;
+                readonly default?: string | undefined;
+                readonly option?: {
+                    [x: string]: {
+                        readonly title: string;
+                        readonly cost: number;
+                    };
+                } | undefined;
+            };
+        };
+    }>) & {
+        config: {
+            title: ((val: unknown) => Readonly<Record<string, string>>) & {
+                config: (val: string) => string;
+                Value: Readonly<Record<string, string>>;
+            };
+            icon: (val: string) => string;
+            param: ((val: unknown) => Readonly<Record<string, Readonly<{
+                title: {
+                    [x: string]: string;
+                };
+                unit?: {
+                    [x: string]: string;
+                } | undefined;
+                icon: string;
+                cost?: number | undefined;
+                default?: string | undefined;
+                option?: {
+                    [x: string]: {
+                        readonly title: string;
+                        readonly cost: number;
+                    };
+                } | undefined;
+            }>>>) & {
+                config: ((val: unknown) => Readonly<{
+                    title: {
+                        [x: string]: string;
+                    };
+                    unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    icon: string;
+                    cost?: number | undefined;
+                    default?: string | undefined;
+                    option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                }>) & {
+                    config: {
+                        title: ((val: unknown) => Readonly<Record<string, string>>) & {
+                            config: (val: string) => string;
+                            Value: Readonly<Record<string, string>>;
+                        };
+                        unit: ((val: unknown) => Readonly<Record<string, string>> | undefined) & {
+                            config: ((val: unknown) => Readonly<Record<string, string>>) & {
+                                config: (val: string) => string;
+                                Value: Readonly<Record<string, string>>;
+                            };
+                            Value: Readonly<Record<string, string>> | undefined;
+                        };
+                        icon: (val: string) => string;
+                        cost: ((val: number | undefined) => number | undefined) & {
+                            config: typeof $mol_data_integer;
+                            Value: number | undefined;
+                        };
+                        default: ((val: string | undefined) => string | undefined) & {
+                            config: (val: string) => string;
+                            Value: string | undefined;
+                        };
+                        option: ((val: unknown) => Readonly<Record<string, Readonly<{
+                            title: string;
+                            cost: number;
+                        }>>> | undefined) & {
+                            config: ((val: unknown) => Readonly<Record<string, Readonly<{
+                                title: string;
+                                cost: number;
+                            }>>>) & {
+                                config: ((val: unknown) => Readonly<{
+                                    title: string;
+                                    cost: number;
+                                }>) & {
+                                    config: {
+                                        title: (val: string) => string;
+                                        cost: typeof $mol_data_integer;
+                                    };
+                                    Value: Readonly<{
+                                        title: string;
+                                        cost: number;
+                                    }>;
+                                };
+                                Value: Readonly<Record<string, Readonly<{
+                                    title: string;
+                                    cost: number;
+                                }>>>;
+                            };
+                            Value: Readonly<Record<string, Readonly<{
+                                title: string;
+                                cost: number;
+                            }>>> | undefined;
+                        };
+                    };
+                    Value: Readonly<{
+                        title: {
+                            [x: string]: string;
+                        };
+                        unit?: {
+                            [x: string]: string;
+                        } | undefined;
+                        icon: string;
+                        cost?: number | undefined;
+                        default?: string | undefined;
+                        option?: {
+                            [x: string]: {
+                                readonly title: string;
+                                readonly cost: number;
+                            };
+                        } | undefined;
+                    }>;
+                };
+                Value: Readonly<Record<string, Readonly<{
+                    title: {
+                        [x: string]: string;
+                    };
+                    unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    icon: string;
+                    cost?: number | undefined;
+                    default?: string | undefined;
+                    option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                }>>>;
+            };
+        };
+        Value: Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            icon: string;
+            param: {
+                [x: string]: {
+                    readonly title: {
+                        [x: string]: string;
+                    };
+                    readonly unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    readonly icon: string;
+                    readonly cost?: number | undefined;
+                    readonly default?: string | undefined;
+                    readonly option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                };
+            };
+        }>;
+    };
+    let $my_tele2_tarif_scheme: ((val: unknown) => Readonly<Record<string, Readonly<{
+        title: {
+            [x: string]: string;
+        };
+        icon: string;
+        param: {
+            [x: string]: {
+                readonly title: {
+                    [x: string]: string;
+                };
+                readonly unit?: {
+                    [x: string]: string;
+                } | undefined;
+                readonly icon: string;
+                readonly cost?: number | undefined;
+                readonly default?: string | undefined;
+                readonly option?: {
+                    [x: string]: {
+                        readonly title: string;
+                        readonly cost: number;
+                    };
+                } | undefined;
+            };
+        };
+    }>>>) & {
+        config: ((val: unknown) => Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            icon: string;
+            param: {
+                [x: string]: {
+                    readonly title: {
+                        [x: string]: string;
+                    };
+                    readonly unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    readonly icon: string;
+                    readonly cost?: number | undefined;
+                    readonly default?: string | undefined;
+                    readonly option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                };
+            };
+        }>) & {
+            config: {
+                title: ((val: unknown) => Readonly<Record<string, string>>) & {
+                    config: (val: string) => string;
+                    Value: Readonly<Record<string, string>>;
+                };
+                icon: (val: string) => string;
+                param: ((val: unknown) => Readonly<Record<string, Readonly<{
+                    title: {
+                        [x: string]: string;
+                    };
+                    unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    icon: string;
+                    cost?: number | undefined;
+                    default?: string | undefined;
+                    option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                }>>>) & {
+                    config: ((val: unknown) => Readonly<{
+                        title: {
+                            [x: string]: string;
+                        };
+                        unit?: {
+                            [x: string]: string;
+                        } | undefined;
+                        icon: string;
+                        cost?: number | undefined;
+                        default?: string | undefined;
+                        option?: {
+                            [x: string]: {
+                                readonly title: string;
+                                readonly cost: number;
+                            };
+                        } | undefined;
+                    }>) & {
+                        config: {
+                            title: ((val: unknown) => Readonly<Record<string, string>>) & {
+                                config: (val: string) => string;
+                                Value: Readonly<Record<string, string>>;
+                            };
+                            unit: ((val: unknown) => Readonly<Record<string, string>> | undefined) & {
+                                config: ((val: unknown) => Readonly<Record<string, string>>) & {
+                                    config: (val: string) => string;
+                                    Value: Readonly<Record<string, string>>;
+                                };
+                                Value: Readonly<Record<string, string>> | undefined;
+                            };
+                            icon: (val: string) => string;
+                            cost: ((val: number | undefined) => number | undefined) & {
+                                config: typeof $mol_data_integer;
+                                Value: number | undefined;
+                            };
+                            default: ((val: string | undefined) => string | undefined) & {
+                                config: (val: string) => string;
+                                Value: string | undefined;
+                            };
+                            option: ((val: unknown) => Readonly<Record<string, Readonly<{
+                                title: string;
+                                cost: number;
+                            }>>> | undefined) & {
+                                config: ((val: unknown) => Readonly<Record<string, Readonly<{
+                                    title: string;
+                                    cost: number;
+                                }>>>) & {
+                                    config: ((val: unknown) => Readonly<{
+                                        title: string;
+                                        cost: number;
+                                    }>) & {
+                                        config: {
+                                            title: (val: string) => string;
+                                            cost: typeof $mol_data_integer;
+                                        };
+                                        Value: Readonly<{
+                                            title: string;
+                                            cost: number;
+                                        }>;
+                                    };
+                                    Value: Readonly<Record<string, Readonly<{
+                                        title: string;
+                                        cost: number;
+                                    }>>>;
+                                };
+                                Value: Readonly<Record<string, Readonly<{
+                                    title: string;
+                                    cost: number;
+                                }>>> | undefined;
+                            };
+                        };
+                        Value: Readonly<{
+                            title: {
+                                [x: string]: string;
+                            };
+                            unit?: {
+                                [x: string]: string;
+                            } | undefined;
+                            icon: string;
+                            cost?: number | undefined;
+                            default?: string | undefined;
+                            option?: {
+                                [x: string]: {
+                                    readonly title: string;
+                                    readonly cost: number;
+                                };
+                            } | undefined;
+                        }>;
+                    };
+                    Value: Readonly<Record<string, Readonly<{
+                        title: {
+                            [x: string]: string;
+                        };
+                        unit?: {
+                            [x: string]: string;
+                        } | undefined;
+                        icon: string;
+                        cost?: number | undefined;
+                        default?: string | undefined;
+                        option?: {
+                            [x: string]: {
+                                readonly title: string;
+                                readonly cost: number;
+                            };
+                        } | undefined;
+                    }>>>;
+                };
+            };
+            Value: Readonly<{
+                title: {
+                    [x: string]: string;
+                };
+                icon: string;
+                param: {
+                    [x: string]: {
+                        readonly title: {
+                            [x: string]: string;
+                        };
+                        readonly unit?: {
+                            [x: string]: string;
+                        } | undefined;
+                        readonly icon: string;
+                        readonly cost?: number | undefined;
+                        readonly default?: string | undefined;
+                        readonly option?: {
+                            [x: string]: {
+                                readonly title: string;
+                                readonly cost: number;
+                            };
+                        } | undefined;
+                    };
+                };
+            }>;
+        };
+        Value: Readonly<Record<string, Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            icon: string;
+            param: {
+                [x: string]: {
+                    readonly title: {
+                        [x: string]: string;
+                    };
+                    readonly unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    readonly icon: string;
+                    readonly cost?: number | undefined;
+                    readonly default?: string | undefined;
+                    readonly option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                };
+            };
+        }>>>;
+    };
+}
+
+declare namespace $ {
+    function $my_tele2_locale(this: $mol_ambient_context, all: Record<string, string>): string;
 }
 
 declare namespace $ {
@@ -1507,6 +2280,59 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $my_tele2 extends $.$my_tele2 {
+        tarif(): Readonly<Record<string, Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            icon: string;
+            param: {
+                [x: string]: {
+                    readonly title: {
+                        [x: string]: string;
+                    };
+                    readonly unit?: {
+                        [x: string]: string;
+                    } | undefined;
+                    readonly icon: string;
+                    readonly cost?: number | undefined;
+                    readonly default?: string | undefined;
+                    readonly option?: {
+                        [x: string]: {
+                            readonly title: string;
+                            readonly cost: number;
+                        };
+                    } | undefined;
+                };
+            };
+        }>>>;
+        groups(): $my_tele2_group[];
+        group_title(id: string): string;
+        params(): Record<string, Readonly<{
+            title: {
+                [x: string]: string;
+            };
+            unit?: {
+                [x: string]: string;
+            } | undefined;
+            icon: string;
+            cost?: number | undefined;
+            default?: string | undefined;
+            option?: {
+                [x: string]: {
+                    readonly title: string;
+                    readonly cost: number;
+                };
+            } | undefined;
+        }>>;
+        group_params(id: string): ($mol_form_field | $mol_check_box)[];
+        param_type(id: string): "switch" | "flag";
+        Param(id: string): $mol_form_field | $mol_check_box;
+        param_title(id: string): string;
+        param_options(id: string): Record<string, string>;
+        param_string(id: string, next?: string): string;
+        param_cost(id: string): number;
+        total(): number;
+        order_title(): string;
     }
 }
 
