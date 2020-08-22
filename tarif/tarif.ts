@@ -22,6 +22,12 @@ namespace $ {
 		param: $mol_data_dict( $my_tele2_tarif_param ),
 	})
 
-	export let $my_tele2_tarif_scheme = $mol_data_dict( $my_tele2_tarif_group )
+	export let $my_tele2_tarif_groups = $mol_data_dict( $my_tele2_tarif_group )
+
+	export let $my_tele2_tarif_scheme = $mol_data_record({
+		description: $my_tele2_tarif_locale,
+		currency: $mol_data_string,
+		group: $my_tele2_tarif_groups,
+	})
 
 }

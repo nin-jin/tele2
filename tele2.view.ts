@@ -3,25 +3,37 @@ namespace $.$$ {
 	export class $my_tele2 extends $.$my_tele2 {
 
 		@ $mol_mem
-		tarif() {
+		tarif_scheme() {
 			return $my_tele2_tarif_scheme( this.$.$mol_fetch.json('my/tele2/personal.tarif.json') )
 		}
 
 		@ $mol_mem
 		groups() {
-			return Object.keys( this.tarif() ).map( id => this.Group( id ) )
+			return Object.keys( this.groups_scheme() ).map( id => this.Group( id ) )
 		}
 
 		@ $mol_mem
 		group_title( id : string ) {
-			return this.$.$my_tele2_locale( this.tarif()[ id ].title )
+			return this.$.$my_tele2_locale( this.groups_scheme()[ id ].title )
+		}
+
+		currency() {
+			return this.tarif_scheme().currency
+		}
+
+		description() {
+			return this.$.$my_tele2_locale( this.tarif_scheme().description )
+		}
+
+		groups_scheme() {
+			return this.tarif_scheme().group
 		}
 
 		@ $mol_mem
 		params() {
 			
 			let res = {} as Record< string , typeof $my_tele2_tarif_param.Value >
-			const scheme = this.tarif()
+			const scheme = this.groups_scheme()
 			
 			for( const group in scheme ) {
 				for( const param in scheme[ group ].param ) {
@@ -34,7 +46,7 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		group_params( id : string ) {
-			return Object.keys( this.tarif()[ id ].param ).map( id => this.Param( id ) )
+			return Object.keys( this.groups_scheme()[ id ].param ).map( id => this.Param( id ) )
 		}
 
 		param_type( id : string ) {

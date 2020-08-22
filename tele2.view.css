@@ -23,7 +23,16 @@
 	flex: 1 0 auto;
 }
 
+[my_tele2_body] {
+	padding: .75rem;
+}
+
+[my_tele2_description] {
+	max-width: none;
+}
+
 [my_tele2_groups] {
+	padding: 0;
 	justify-content: space-evenly;
 	align-content: space-evenly;
 }

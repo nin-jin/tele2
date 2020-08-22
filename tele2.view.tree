@@ -1,25 +1,31 @@
-$my_tele2 $mol_page
+$my_tele2_settings $mol_page
 	title \Настрой Tele2 под себя
 	head /
 		<= Logo $mol_image uri \my/tele2/logo/logo_128.png
 		<= Title
 		<= Tools
+
+$my_tele2 $my_tele2_settings
 	tools /
 		<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
 	body /
 		<= Settings $mol_form
 			sub /
 				<= Groups $mol_row sub <= groups /$my_tele2_group
+				<= Description $mol_text
+					text <= description \
 	foot /
 		<= Daily $mol_view
 			sub /
 				<= daily 0
-				\₽ в день
+				<= currency \
+				\ в день
 		\ или 
 		<= Monthly $mol_view
 			sub /
 				<= monthly 0
-				\₽ за 30 дней
+				<= currency \
+				\ за 30 дней
 		<= Order $mol_button_major
 			title <= order_title \Перейти
 			click?event <=> order?event null
@@ -37,3 +43,4 @@ $my_tele2 $mol_page
 	Param_flag!id $mol_check_box
 		title <= param_title!id \
 		checked?val <=> param_flag!id?val false
+
