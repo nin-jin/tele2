@@ -397,8 +397,18 @@ $my_tele2 $mol_book2
 			options <= param_options!id *
 	-
 	Param_flag!id $mol_check_box
-		title <= param_title!id \
 		checked?val <=> param_flag!id?val false
+		label /
+			<= Param_flag_title!id $mol_view
+				sub /
+					<= param_title!id \
+			<= Param_partners!id $mol_view
+				sub <= param_partners!id /
+	-
+	Partner!uri $mol_link_iconed
+		target \_blank
+		uri <= partner_uri!uri \
+		minimal_height 0
 
 
 $mol_form $mol_view

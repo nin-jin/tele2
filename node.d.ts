@@ -2070,6 +2070,11 @@ declare namespace $ {
         param_options(id: any): {};
         Param_flag(id: any): $mol_check_box;
         param_flag(id: any, val?: any, force?: $mol_mem_force): any;
+        Param_flag_title(id: any): $mol_view;
+        Param_partners(id: any): $mol_view;
+        param_partners(id: any): readonly any[];
+        Partner(uri: any): $$.$mol_link_iconed;
+        partner_uri(uri: any): string;
     }
 }
 
@@ -2150,6 +2155,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][] | unknown) => readonly ReturnType<Sub>[]) & {
+        config: Sub;
+        Value: readonly ReturnType<Sub>[];
+    };
+}
+
+declare namespace $ {
     let $my_tele2_tarif_locale: ((val: unknown) => Readonly<Record<string, string>>) & {
         config: (val: string) => string;
         Value: Readonly<Record<string, string>>;
@@ -2174,6 +2186,7 @@ declare namespace $ {
         unit?: {
             [x: string]: string;
         } | undefined;
+        link?: readonly string[] | undefined;
         icon: string;
         cost?: number | undefined;
         default?: string | undefined;
@@ -2195,6 +2208,13 @@ declare namespace $ {
                     Value: Readonly<Record<string, string>>;
                 };
                 Value: Readonly<Record<string, string>> | undefined;
+            };
+            link: ((val: unknown) => readonly string[] | undefined) & {
+                config: ((val: unknown) => readonly string[]) & {
+                    config: (val: string) => string;
+                    Value: readonly string[];
+                };
+                Value: readonly string[] | undefined;
             };
             icon: (val: string) => string;
             cost: ((val: number | undefined) => number | undefined) & {
@@ -2244,6 +2264,7 @@ declare namespace $ {
             unit?: {
                 [x: string]: string;
             } | undefined;
+            link?: readonly string[] | undefined;
             icon: string;
             cost?: number | undefined;
             default?: string | undefined;
@@ -2268,6 +2289,7 @@ declare namespace $ {
                 readonly unit?: {
                     [x: string]: string;
                 } | undefined;
+                readonly link?: readonly string[] | undefined;
                 readonly icon: string;
                 readonly cost?: number | undefined;
                 readonly default?: string | undefined;
@@ -2293,6 +2315,7 @@ declare namespace $ {
                 unit?: {
                     [x: string]: string;
                 } | undefined;
+                link?: readonly string[] | undefined;
                 icon: string;
                 cost?: number | undefined;
                 default?: string | undefined;
@@ -2310,6 +2333,7 @@ declare namespace $ {
                     unit?: {
                         [x: string]: string;
                     } | undefined;
+                    link?: readonly string[] | undefined;
                     icon: string;
                     cost?: number | undefined;
                     default?: string | undefined;
@@ -2331,6 +2355,13 @@ declare namespace $ {
                                 Value: Readonly<Record<string, string>>;
                             };
                             Value: Readonly<Record<string, string>> | undefined;
+                        };
+                        link: ((val: unknown) => readonly string[] | undefined) & {
+                            config: ((val: unknown) => readonly string[]) & {
+                                config: (val: string) => string;
+                                Value: readonly string[];
+                            };
+                            Value: readonly string[] | undefined;
                         };
                         icon: (val: string) => string;
                         cost: ((val: number | undefined) => number | undefined) & {
@@ -2380,6 +2411,7 @@ declare namespace $ {
                         unit?: {
                             [x: string]: string;
                         } | undefined;
+                        link?: readonly string[] | undefined;
                         icon: string;
                         cost?: number | undefined;
                         default?: string | undefined;
@@ -2398,6 +2430,7 @@ declare namespace $ {
                     unit?: {
                         [x: string]: string;
                     } | undefined;
+                    link?: readonly string[] | undefined;
                     icon: string;
                     cost?: number | undefined;
                     default?: string | undefined;
@@ -2423,6 +2456,7 @@ declare namespace $ {
                     readonly unit?: {
                         [x: string]: string;
                     } | undefined;
+                    readonly link?: readonly string[] | undefined;
                     readonly icon: string;
                     readonly cost?: number | undefined;
                     readonly default?: string | undefined;
@@ -2449,6 +2483,7 @@ declare namespace $ {
                 readonly unit?: {
                     [x: string]: string;
                 } | undefined;
+                readonly link?: readonly string[] | undefined;
                 readonly icon: string;
                 readonly cost?: number | undefined;
                 readonly default?: string | undefined;
@@ -2474,6 +2509,7 @@ declare namespace $ {
                     readonly unit?: {
                         [x: string]: string;
                     } | undefined;
+                    readonly link?: readonly string[] | undefined;
                     readonly icon: string;
                     readonly cost?: number | undefined;
                     readonly default?: string | undefined;
@@ -2499,6 +2535,7 @@ declare namespace $ {
                     unit?: {
                         [x: string]: string;
                     } | undefined;
+                    link?: readonly string[] | undefined;
                     icon: string;
                     cost?: number | undefined;
                     default?: string | undefined;
@@ -2516,6 +2553,7 @@ declare namespace $ {
                         unit?: {
                             [x: string]: string;
                         } | undefined;
+                        link?: readonly string[] | undefined;
                         icon: string;
                         cost?: number | undefined;
                         default?: string | undefined;
@@ -2537,6 +2575,13 @@ declare namespace $ {
                                     Value: Readonly<Record<string, string>>;
                                 };
                                 Value: Readonly<Record<string, string>> | undefined;
+                            };
+                            link: ((val: unknown) => readonly string[] | undefined) & {
+                                config: ((val: unknown) => readonly string[]) & {
+                                    config: (val: string) => string;
+                                    Value: readonly string[];
+                                };
+                                Value: readonly string[] | undefined;
                             };
                             icon: (val: string) => string;
                             cost: ((val: number | undefined) => number | undefined) & {
@@ -2586,6 +2631,7 @@ declare namespace $ {
                             unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            link?: readonly string[] | undefined;
                             icon: string;
                             cost?: number | undefined;
                             default?: string | undefined;
@@ -2604,6 +2650,7 @@ declare namespace $ {
                         unit?: {
                             [x: string]: string;
                         } | undefined;
+                        link?: readonly string[] | undefined;
                         icon: string;
                         cost?: number | undefined;
                         default?: string | undefined;
@@ -2629,6 +2676,7 @@ declare namespace $ {
                         readonly unit?: {
                             [x: string]: string;
                         } | undefined;
+                        readonly link?: readonly string[] | undefined;
                         readonly icon: string;
                         readonly cost?: number | undefined;
                         readonly default?: string | undefined;
@@ -2655,6 +2703,7 @@ declare namespace $ {
                     readonly unit?: {
                         [x: string]: string;
                     } | undefined;
+                    readonly link?: readonly string[] | undefined;
                     readonly icon: string;
                     readonly cost?: number | undefined;
                     readonly default?: string | undefined;
@@ -2687,6 +2736,7 @@ declare namespace $ {
                         readonly unit?: {
                             [x: string]: string;
                         } | undefined;
+                        readonly link?: readonly string[] | undefined;
                         readonly icon: string;
                         readonly cost?: number | undefined;
                         readonly default?: string | undefined;
@@ -2720,6 +2770,7 @@ declare namespace $ {
                         readonly unit?: {
                             [x: string]: string;
                         } | undefined;
+                        readonly link?: readonly string[] | undefined;
                         readonly icon: string;
                         readonly cost?: number | undefined;
                         readonly default?: string | undefined;
@@ -2745,6 +2796,7 @@ declare namespace $ {
                             readonly unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            readonly link?: readonly string[] | undefined;
                             readonly icon: string;
                             readonly cost?: number | undefined;
                             readonly default?: string | undefined;
@@ -2770,6 +2822,7 @@ declare namespace $ {
                             unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            link?: readonly string[] | undefined;
                             icon: string;
                             cost?: number | undefined;
                             default?: string | undefined;
@@ -2787,6 +2840,7 @@ declare namespace $ {
                                 unit?: {
                                     [x: string]: string;
                                 } | undefined;
+                                link?: readonly string[] | undefined;
                                 icon: string;
                                 cost?: number | undefined;
                                 default?: string | undefined;
@@ -2808,6 +2862,13 @@ declare namespace $ {
                                             Value: Readonly<Record<string, string>>;
                                         };
                                         Value: Readonly<Record<string, string>> | undefined;
+                                    };
+                                    link: ((val: unknown) => readonly string[] | undefined) & {
+                                        config: ((val: unknown) => readonly string[]) & {
+                                            config: (val: string) => string;
+                                            Value: readonly string[];
+                                        };
+                                        Value: readonly string[] | undefined;
                                     };
                                     icon: (val: string) => string;
                                     cost: ((val: number | undefined) => number | undefined) & {
@@ -2857,6 +2918,7 @@ declare namespace $ {
                                     unit?: {
                                         [x: string]: string;
                                     } | undefined;
+                                    link?: readonly string[] | undefined;
                                     icon: string;
                                     cost?: number | undefined;
                                     default?: string | undefined;
@@ -2875,6 +2937,7 @@ declare namespace $ {
                                 unit?: {
                                     [x: string]: string;
                                 } | undefined;
+                                link?: readonly string[] | undefined;
                                 icon: string;
                                 cost?: number | undefined;
                                 default?: string | undefined;
@@ -2900,6 +2963,7 @@ declare namespace $ {
                                 readonly unit?: {
                                     [x: string]: string;
                                 } | undefined;
+                                readonly link?: readonly string[] | undefined;
                                 readonly icon: string;
                                 readonly cost?: number | undefined;
                                 readonly default?: string | undefined;
@@ -2926,6 +2990,7 @@ declare namespace $ {
                             readonly unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            readonly link?: readonly string[] | undefined;
                             readonly icon: string;
                             readonly cost?: number | undefined;
                             readonly default?: string | undefined;
@@ -2959,6 +3024,7 @@ declare namespace $ {
                             readonly unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            readonly link?: readonly string[] | undefined;
                             readonly icon: string;
                             readonly cost?: number | undefined;
                             readonly default?: string | undefined;
@@ -3191,6 +3257,7 @@ declare namespace $.$$ {
                             readonly unit?: {
                                 [x: string]: string;
                             } | undefined;
+                            readonly link?: readonly string[] | undefined;
                             readonly icon: string;
                             readonly cost?: number | undefined;
                             readonly default?: string | undefined;
@@ -3223,6 +3290,7 @@ declare namespace $.$$ {
                         readonly unit?: {
                             [x: string]: string;
                         } | undefined;
+                        readonly link?: readonly string[] | undefined;
                         readonly icon: string;
                         readonly cost?: number | undefined;
                         readonly default?: string | undefined;
@@ -3243,6 +3311,7 @@ declare namespace $.$$ {
             unit?: {
                 [x: string]: string;
             } | undefined;
+            link?: readonly string[] | undefined;
             icon: string;
             cost?: number | undefined;
             default?: string | undefined;
@@ -3258,10 +3327,12 @@ declare namespace $.$$ {
         Param(id: string): $mol_form_field | $mol_check_box;
         param_title(id: string): string;
         param_options(id: string): Record<string, string>;
+        param_partners(id: string): $mol_link_iconed[];
         param_string(id: string, next?: string): string;
         param_flag(id: string, next?: boolean): boolean;
         param_value(id: string): string | boolean;
         param_cost(id: string): number;
+        partner_uri(uri: string): string;
         daily(): number;
         monthly(): number;
         settings_id(next?: string): string;

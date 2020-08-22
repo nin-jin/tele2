@@ -54,15 +54,26 @@
 				"social": {
 					"title": { "ru": "Социальные сети" },
 					"icon": "",
+					"link": [
+						"https://vk.com",
+						"https://www.facebook.com"
+					],
 					"cost": 5
 				},
 				"messanger": {
-					"title": { "ru": "Менссенджеры" },
+					"title": { "ru": "Мессенджеры" },
 					"icon": "",
+					"link": [
+						"https://telegram.org",
+						"https://whatsapp.com"
+					],
 					"cost": 5
 				},
 				"video": {
 					"title": { "ru": "Видеохостинги" },
+					"link": [
+						"http://youtube.com"
+					],
 					"icon": "",
 					"cost": 5
 				},

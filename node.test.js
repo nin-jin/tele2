@@ -6513,13 +6513,39 @@ var $;
         }
         Param_flag(id) {
             return ((obj) => {
-                obj.title = () => this.param_title(id);
                 obj.checked = (val) => this.param_flag(id, val);
+                obj.label = () => [this.Param_flag_title(id), this.Param_partners(id)];
                 return obj;
             })(new this.$.$mol_check_box());
         }
         param_flag(id, val, force) {
             return (val !== void 0) ? val : false;
+        }
+        Param_flag_title(id) {
+            return ((obj) => {
+                obj.sub = () => [this.param_title(id)];
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        Param_partners(id) {
+            return ((obj) => {
+                obj.sub = () => this.param_partners(id);
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        param_partners(id) {
+            return [];
+        }
+        Partner(uri) {
+            return ((obj) => {
+                obj.target = () => "_blank";
+                obj.uri = () => this.partner_uri(uri);
+                obj.minimal_height = () => 0;
+                return obj;
+            })(new this.$.$mol_link_iconed());
+        }
+        partner_uri(uri) {
+            return "";
         }
     }
     __decorate([
@@ -6567,6 +6593,15 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $my_tele2.prototype, "param_flag", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_tele2.prototype, "Param_flag_title", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_tele2.prototype, "Param_partners", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_tele2.prototype, "Partner", null);
     $.$my_tele2 = $my_tele2;
 })($ || ($ = {}));
 //tele2.view.tree.js.map
@@ -6754,6 +6789,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_data_array(sub) {
+        return $.$mol_data_setup((val) => {
+            if (!Array.isArray(val))
+                return $.$mol_fail(new $.$mol_data_error(`${val} is not an array`));
+            return val.map((item, index) => {
+                try {
+                    return sub(item);
+                }
+                catch (error) {
+                    if ('then' in error)
+                        return $.$mol_fail_hidden(error);
+                    error.message = `[${index}] ${error.message}`;
+                    return $.$mol_fail(error);
+                }
+            });
+        }, sub);
+    }
+    $.$mol_data_array = $mol_data_array;
+})($ || ($ = {}));
+//array.js.map
+;
+"use strict";
+var $;
+(function ($) {
     $.$my_tele2_tarif_locale = $.$mol_data_dict($.$mol_data_string);
     $.$my_tele2_tarif_option = $.$mol_data_record({
         title: $.$mol_data_string,
@@ -6762,6 +6821,7 @@ var $;
     $.$my_tele2_tarif_param = $.$mol_data_record({
         title: $.$my_tele2_tarif_locale,
         unit: $.$mol_data_optional($.$my_tele2_tarif_locale),
+        link: $.$mol_data_optional($.$mol_data_array($.$mol_data_string)),
         icon: $.$mol_data_string,
         cost: $.$mol_data_optional($.$mol_data_integer),
         default: $.$mol_data_optional($.$mol_data_string),
@@ -7605,7 +7665,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_menu] {\n\tflex: 0 0 16rem;\n}\n\n[my_tele2_settings_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 60rem;\n}\n\n[my_tele2_settings_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_settings_head] {\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_settings_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n");
+    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_menu] {\n\tflex: 0 0 16rem;\n}\n\n[my_tele2_settings_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 60rem;\n}\n\n[my_tele2_settings_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_settings_head] {\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_settings_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n\n[my_tele2_partner] {\n\tmargin: -.5rem;\n}\n\n[my_tele2_param_flag] {\n\talign-items: baseline;\n}\n\n[my_tele2_param_flag_title] {\n\tmargin: 0 .5rem;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
 ;
@@ -7669,6 +7729,10 @@ var $;
                 }
                 return options;
             }
+            param_partners(id) {
+                var _a;
+                return ((_a = this.params()[id].link) !== null && _a !== void 0 ? _a : []).map(uri => this.Partner(uri));
+            }
             param_string(id, next) {
                 var _a;
                 return (_a = next !== null && next !== void 0 ? next : this.settings_current()[id]) !== null && _a !== void 0 ? _a : this.params()[id].default;
@@ -7698,6 +7762,9 @@ var $;
                         }
                     }
                 }
+            }
+            partner_uri(uri) {
+                return uri;
             }
             daily() {
                 const params = Object.keys(this.params());
@@ -7752,6 +7819,9 @@ var $;
         __decorate([
             $.$mol_mem_key
         ], $my_tele2.prototype, "param_options", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $my_tele2.prototype, "param_partners", null);
         __decorate([
             $.$mol_mem_key
         ], $my_tele2.prototype, "param_string", null);
@@ -10404,6 +10474,35 @@ var $;
     });
 })($ || ($ = {}));
 //optional.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'Is empty array'() {
+            $.$mol_data_array($.$mol_data_number)([]);
+        },
+        'Is array'() {
+            $.$mol_data_array($.$mol_data_number)([1, 2]);
+        },
+        'Is not array'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)({ [0]: 1, length: 1, map: () => { } });
+            }, '[object Object] is not an array');
+        },
+        'Has wrong item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_number)([1, '1']);
+            }, '[1] 1 is not a number');
+        },
+        'Has wrong deep item'() {
+            $.$mol_assert_fail(() => {
+                $.$mol_data_array($.$mol_data_array($.$mol_data_number))([[], [0, 0, false]]);
+            }, '[1] [2] false is not a number');
+        },
+    });
+})($ || ($ = {}));
+//array.test.js.map
 ;
 "use strict";
 var $;
