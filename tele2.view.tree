@@ -10,8 +10,18 @@ $my_tele2 $mol_page
 		<= Settings $mol_form
 			sub /
 				<= Groups $mol_row sub <= groups /$my_tele2_group
-				<= Order $mol_button_major
-					title <= order_title \Подключить за {total}₽ в день
+	foot /
+		<= Daily $mol_view
+			sub /
+				<= daily 0
+				\₽ в день
+		\ или 
+		<= Monthly $mol_view
+			sub /
+				<= monthly 0
+				\₽ за 30 дней
+		<= Order $mol_button_major
+			title <= order_title \Перейти
 	-
 	Group!id $my_tele2_group
 		title <= group_title!id \

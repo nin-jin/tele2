@@ -1,8 +1,21 @@
+[mol_theme="$mol_theme_base"] {
+	--mol_theme_back: black;
+}
+
+[mol_theme="$mol_theme_accent"] {
+	--mol_theme_back: #FF59A3;
+	--mol_theme_hover: #F050A0;
+}
+
 [my_tele2_logo] {
 	width: 40px;
 }
 
 [my_tele2_title] {
+	justify-content: center;
+}
+
+[my_tele2_body] {
 	justify-content: center;
 }
 
@@ -30,4 +43,19 @@
 
 [my_tele2_order] {
 	margin: auto;
+}
+
+[my_tele2_foot] {
+	padding: .5rem;
+	justify-content: center;
+	align-items: baseline;
+	flex-wrap: wrap;
+}
+
+[my_tele2_foot]>* {
+	margin: .25rem;
+}
+
+[my_tele2_daily] {
+	font-weight: bolder;
 }

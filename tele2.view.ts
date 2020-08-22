@@ -96,16 +96,15 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		total() {
+		daily() {
 			const params = Object.keys( this.params() )
 			const costs = params.map( id => this.param_cost( id ) )
 			const res = costs.reduce( ( a , b )=> a + b )
 			return res
 		}
 
-		@ $mol_mem
-		order_title() {
-			return super.order_title().replace( '{total}' , this.total().toString() )
+		monthly() {
+			return this.daily() * 30
 		}
 
 	}
