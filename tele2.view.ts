@@ -71,7 +71,19 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		param_string( id : string , next? : string ) {
-			return next ?? this.params()[ id ].default!
+			return next ?? this.settings()[ id ] ?? this.params()[ id ].default!
+		}
+
+		@ $mol_mem_key
+		param_flag( id : string , next? : boolean ) {
+			return next ?? this.settings()[ id ] ?? false
+		}
+
+		param_value( id: string ) {
+			switch( this.param_type( id ) ) {
+				case 'switch': return this.param_string( id )
+				case 'flag': return this.param_flag( id )
+			}
 		}
 
 		param_cost( id : string ) {
@@ -105,6 +117,18 @@ namespace $.$$ {
 
 		monthly() {
 			return this.daily() * 30
+		}
+
+		settings( next?: Record< string , string | boolean > ) {
+			return $mol_shared.cache( 'settings' , next ) ?? {}
+		}
+
+		order() {
+			const settings = {} as Record< string , string | boolean >
+			for( const param in this.params() ) {
+				settings[ param ] = this.param_value( param )
+			}
+			this.settings( settings )
 		}
 
 	}

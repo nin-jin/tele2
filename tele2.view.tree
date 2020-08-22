@@ -22,6 +22,7 @@ $my_tele2 $mol_page
 				\₽ за 30 дней
 		<= Order $mol_button_major
 			title <= order_title \Перейти
+			click?event <=> order?event null
 	-
 	Group!id $my_tele2_group
 		title <= group_title!id \
