@@ -47,6 +47,16 @@
 				"title": { "ru": "Видеохостинги" },
 				"icon": "",
 				"cost": 5
+			},
+			"music": {
+				"title": { "ru": "Музыка" },
+				"icon": "",
+				"cost": 5
+			},
+			"games": {
+				"title": { "ru": "Игры" },
+				"icon": "",
+				"cost": 5
 			}
 		}
 	}
