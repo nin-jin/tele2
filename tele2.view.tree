@@ -5,30 +5,33 @@ $my_tele2_settings $mol_page
 		<= Title
 		<= Tools
 
-$my_tele2 $my_tele2_settings
-	tools /
-		<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
-	body /
-		<= Settings $mol_form
-			sub /
-				<= Groups $mol_row sub <= groups /$my_tele2_group
+$my_tele2 $mol_book2
+	pages /
+		<= Menu $mol_page
+			title \Личные тарифы
+		<= Settings $my_tele2_settings
+			tools /
+				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
+			body /
+				<= Groups $mol_row
+					sub <= groups /$my_tele2_group
 				<= Description $mol_text
 					text <= description \
-	foot /
-		<= Daily $mol_view
-			sub /
-				<= daily 0
-				<= currency \
-				\ в день
-		\ или 
-		<= Monthly $mol_view
-			sub /
-				<= monthly 0
-				<= currency \
-				\ за 30 дней
-		<= Order $mol_button_major
-			title <= order_title \Перейти
-			click?event <=> order?event null
+			foot /
+				<= Daily $mol_view
+					sub /
+						<= daily 0
+						<= currency \
+						\ в день
+				\ или 
+				<= Monthly $mol_view
+					sub /
+						<= monthly 0
+						<= currency \
+						\ за 30 дней
+				<= Order $mol_button_major
+					title <= order_title \Перейти
+					click?event <=> order?event null
 	-
 	Group!id $my_tele2_group
 		title <= group_title!id \

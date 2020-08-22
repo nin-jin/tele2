@@ -11,7 +11,11 @@
 	border-radius: 2rem;
 }
 
-[my_tele2_logo] {
+[my_tele2_menu] {
+	flex: 0 0 16rem;
+}
+
+[my_tele2_settings_logo] {
 	width: 40px;
 }
 
@@ -20,10 +24,10 @@
 }
 
 [my_tele2_settings] {
-	flex: 1 0 auto;
+	flex: 1 0 60rem;
 }
 
-[my_tele2_body] {
+[my_tele2_settings_body] {
 	padding: .75rem;
 }
 
@@ -61,14 +65,18 @@
 	margin: auto;
 }
 
-[my_tele2_foot] {
+[my_tele2_settings_head] {
+	align-items: flex-start;
+}
+
+[my_tele2_settings_foot] {
 	padding: .5rem;
 	justify-content: center;
 	align-items: baseline;
 	flex-wrap: wrap;
 }
 
-[my_tele2_foot]>* {
+[my_tele2_settings_foot]>* {
 	margin: .25rem;
 }
 
