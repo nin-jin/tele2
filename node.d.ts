@@ -1166,6 +1166,25 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_book2 extends $mol_scroll {
+        sub(): readonly $mol_view[];
+        pages(): readonly $mol_view[];
+        minimal_width(): number;
+        Placeholder(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_book2 extends $.$mol_book2 {
+        title(): string;
+        sub(): $mol_view[];
+    }
+}
+
+declare namespace $ {
     class $mol_link extends $mol_view {
         dom_name(): string;
         attr(): {
@@ -1404,6 +1423,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_row extends $mol_view {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_list extends $mol_view {
         render_visible_only(): boolean;
         render_over(): number;
@@ -1453,67 +1480,6 @@ declare namespace $.$$ {
         gap_after(): number;
         sub_visible(): $mol_view[];
         minimal_height(): number;
-    }
-}
-
-declare namespace $ {
-    class $mol_labeler extends $mol_list {
-        rows(): readonly any[];
-        Title(): $mol_view;
-        label(): readonly $mol_view_content[];
-        Content(): $mol_view;
-        content(): readonly any[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_form_field extends $mol_labeler {
-        label(): readonly any[];
-        name(): string;
-        Bid(): $mol_view;
-        bid(): string;
-        Content(): any;
-        control(): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_row extends $mol_view {
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_form extends $mol_view {
-        submit_blocked(): boolean;
-        event(): {
-            keydown: (event?: any) => any;
-        };
-        keydown(event?: any, force?: $mol_mem_force): any;
-        submit(event?: any, force?: $mol_mem_force): any;
-        sub(): readonly any[];
-        Bar_fields(): $mol_view;
-        form_fields(): readonly $mol_form_field[];
-        Bar_buttons(): $mol_row;
-        buttons(): readonly $mol_view[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_form extends $.$mol_form {
-        submit_blocked(): boolean;
-        keydown(next: KeyboardEvent): void;
     }
 }
 
@@ -1977,6 +1943,33 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_labeler extends $mol_list {
+        rows(): readonly any[];
+        Title(): $mol_view;
+        label(): readonly $mol_view_content[];
+        Content(): $mol_view;
+        content(): readonly any[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_form_field extends $mol_labeler {
+        label(): readonly any[];
+        name(): string;
+        Bid(): $mol_view;
+        bid(): string;
+        Content(): any;
+        control(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_switch extends $mol_view {
         minimal_height(): number;
         Option(id: any): $$.$mol_switch_option;
@@ -2050,16 +2043,15 @@ declare namespace $ {
     }
 }
 declare namespace $ {
-    class $my_tele2 extends $my_tele2_settings {
-        tools(): readonly any[];
+    class $my_tele2 extends $mol_book2 {
+        pages(): readonly any[];
+        Menu(): $$.$mol_page;
+        Settings(): $my_tele2_settings;
         Source(): $mol_link_source;
-        body(): readonly any[];
-        Settings(): $$.$mol_form;
         Groups(): $mol_row;
         groups(): readonly $my_tele2_group[];
         Description(): $$.$mol_text;
         description(): string;
-        foot(): readonly any[];
         Daily(): $mol_view;
         daily(): number;
         currency(): string;
@@ -3293,5 +3285,31 @@ declare namespace $ {
             [key: string]: (event: Event) => void;
         };
         render(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_form extends $mol_view {
+        submit_blocked(): boolean;
+        event(): {
+            keydown: (event?: any) => any;
+        };
+        keydown(event?: any, force?: $mol_mem_force): any;
+        submit(event?: any, force?: $mol_mem_force): any;
+        sub(): readonly any[];
+        Bar_fields(): $mol_view;
+        form_fields(): readonly $mol_form_field[];
+        Bar_buttons(): $mol_row;
+        buttons(): readonly $mol_view[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_form extends $.$mol_form {
+        submit_blocked(): boolean;
+        keydown(next: KeyboardEvent): void;
     }
 }

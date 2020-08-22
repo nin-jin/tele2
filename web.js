@@ -3244,7 +3244,7 @@ var $;
                 background: {
                     color: $.$mol_theme.back,
                 },
-                boxShadow: `0 0 .5rem hsla(0,0%,0%,.25)`,
+                boxShadow: `0 -0.5rem 0.5rem -0.5rem hsla(0,0%,0%,.25)`,
                 zIndex: 1,
             },
         });
@@ -3291,6 +3291,73 @@ var $;
     $.$mol_style_attach("mol/image/image.view.css", "[mol_image] {\n\tborder-radius: var(--mol_skin_round);\n\toverflow: hidden;\n\tflex: 0 1 auto;\n\tmax-width: 100%;\n}\n");
 })($ || ($ = {}));
 //image.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_book2 extends $.$mol_scroll {
+        sub() {
+            return this.pages();
+        }
+        pages() {
+            return [];
+        }
+        minimal_width() {
+            return 0;
+        }
+        Placeholder() {
+            return ((obj) => {
+                return obj;
+            })(new this.$.$mol_view());
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_book2.prototype, "Placeholder", null);
+    $.$mol_book2 = $mol_book2;
+})($ || ($ = {}));
+//book2.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/book2/book2.view.css", "[mol_book2] {\n\tdisplay: flex;\n\tflex-flow: row nowrap;\n\talign-items: stretch;\n\toverflow: hidden;\n\tflex: 1 1 auto;\n\talign-self: stretch;\n\tmargin: 0;\n\tbox-shadow: 0 0 0 1px var(--mol_theme_line);\n\ttransform: translateZ(0);\n\ttransition: none;\n\toverflow: auto;\n\tscroll-snap-type: x proximity;\n}\n\n[mol_book2] > * {\n\tflex: none;\n\tscroll-snap-stop: always;\n\tscroll-snap-align: end;\n\tposition: relative;\n\tz-index: 0;\n\tmin-height: 100%;\n\tmax-height: 100%;\n\tmax-width: 100%;\n}\n\n[mol_book2_placeholder] {\n\tflex: 1 1 0;\n\t/* background: var(--mol_theme_back); */\n}\n");
+})($ || ($ = {}));
+//book2.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_book2 extends $.$mol_book2 {
+            title() {
+                return this.pages().map(page => page.title()).reverse().join(' | ');
+            }
+            sub() {
+                var _a;
+                const next = [...this.pages().slice(), this.Placeholder()];
+                const prev = (_a = $.$mol_mem_cached(() => this.sub())) !== null && _a !== void 0 ? _a : [];
+                for (let i = 1; i++;) {
+                    const p = prev[prev.length - i];
+                    const n = next[next.length - i];
+                    if (!n)
+                        break;
+                    if (p === n)
+                        continue;
+                    new $.$mol_after_timeout(100, () => n.dom_node().scrollIntoView({ behavior: 'smooth' }));
+                    break;
+                }
+                return next;
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_book2.prototype, "sub", null);
+        $$.$mol_book2 = $mol_book2;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//book2.view.js.map
 ;
 "use strict";
 var $;
@@ -4242,6 +4309,22 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_row extends $.$mol_view {
+    }
+    $.$mol_row = $mol_row;
+})($ || ($ = {}));
+//row.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: .75rem;\n\tflex: 1 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmargin: .75rem;\n\tmax-width: 100%;\n}\n");
+})($ || ($ = {}));
+//row.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_list extends $.$mol_view {
         render_visible_only() {
             return true;
@@ -4488,190 +4571,6 @@ var $;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 //list.view.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_labeler extends $.$mol_list {
-        rows() {
-            return [this.Title(), this.Content()];
-        }
-        Title() {
-            return ((obj) => {
-                obj.minimal_height = () => 21;
-                obj.sub = () => this.label();
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        label() {
-            return [this.title()];
-        }
-        Content() {
-            return ((obj) => {
-                obj.minimal_height = () => 24;
-                obj.sub = () => this.content();
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        content() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Title", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_labeler.prototype, "Content", null);
-    $.$mol_labeler = $mol_labeler;
-})($ || ($ = {}));
-//labeler.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_title] {\n\tcolor: var(--mol_theme_shade);\n\tfont-size: .875rem;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n}\n");
-})($ || ($ = {}));
-//labeler.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_form_field extends $.$mol_labeler {
-        label() {
-            return [this.name(), this.Bid()];
-        }
-        name() {
-            return "";
-        }
-        Bid() {
-            return ((obj) => {
-                obj.sub = () => [this.bid()];
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        bid() {
-            return "";
-        }
-        Content() {
-            return this.control();
-        }
-        control() {
-            return null;
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_form_field.prototype, "Bid", null);
-    $.$mol_form_field = $mol_form_field;
-})($ || ($ = {}));
-//field.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tmargin-left: .5rem;\n\tdisplay: inline-block;\n}\n");
-})($ || ($ = {}));
-//field.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_row extends $.$mol_view {
-    }
-    $.$mol_row = $mol_row;
-})($ || ($ = {}));
-//row.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/row/row.view.css", "[mol_row] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\talign-items: flex-start;\n\talign-content: flex-start;\n\tjustify-content: flex-start;\n\tpadding: .75rem;\n\tflex: 1 0 auto;\n\tbox-sizing: border-box;\n\tmax-width: 100%;\n}\n\n[mol_row] > * {\n\tmargin: .75rem;\n\tmax-width: 100%;\n}\n");
-})($ || ($ = {}));
-//row.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_form extends $.$mol_view {
-        submit_blocked() {
-            return false;
-        }
-        event() {
-            return (Object.assign(Object.assign({}, super.event()), { "keydown": (event) => this.keydown(event) }));
-        }
-        keydown(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        submit(event, force) {
-            return (event !== void 0) ? event : null;
-        }
-        sub() {
-            return [this.Bar_fields(), this.Bar_buttons()];
-        }
-        Bar_fields() {
-            return ((obj) => {
-                obj.sub = () => this.form_fields();
-                return obj;
-            })(new this.$.$mol_view());
-        }
-        form_fields() {
-            return [];
-        }
-        Bar_buttons() {
-            return ((obj) => {
-                obj.sub = () => this.buttons();
-                return obj;
-            })(new this.$.$mol_row());
-        }
-        buttons() {
-            return [];
-        }
-    }
-    __decorate([
-        $.$mol_mem
-    ], $mol_form.prototype, "keydown", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_form.prototype, "submit", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_form.prototype, "Bar_fields", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_form.prototype, "Bar_buttons", null);
-    $.$mol_form = $mol_form;
-})($ || ($ = {}));
-//form.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/form/form.css", "[mol_form] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[mol_form_bar_fields] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[mol_form_bar_fields] > * {\n\tmargin: .75rem;\n}\n\n[mol_form_bar_buttons] {\n\tbox-shadow: none;\n\tpadding: 0;\n}\n\n[mol_form_bar_buttons] > * {\n\tflex: 1 1 auto;\n}\n");
-})($ || ($ = {}));
-//form.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_form extends $.$mol_form {
-            submit_blocked() {
-                return this.form_fields().some(field => field.bid());
-            }
-            keydown(next) {
-                if (next.ctrlKey && next.keyCode === $.$mol_keyboard_code.enter && !this.submit_blocked())
-                    this.submit(event);
-            }
-        }
-        __decorate([
-            $.$mol_mem
-        ], $mol_form.prototype, "submit_blocked", null);
-        $$.$mol_form = $mol_form;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//form.view.js.map
 ;
 "use strict";
 var $;
@@ -6030,6 +5929,91 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_labeler extends $.$mol_list {
+        rows() {
+            return [this.Title(), this.Content()];
+        }
+        Title() {
+            return ((obj) => {
+                obj.minimal_height = () => 21;
+                obj.sub = () => this.label();
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        label() {
+            return [this.title()];
+        }
+        Content() {
+            return ((obj) => {
+                obj.minimal_height = () => 24;
+                obj.sub = () => this.content();
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        content() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//labeler.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_title] {\n\tcolor: var(--mol_theme_shade);\n\tfont-size: .875rem;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n}\n");
+})($ || ($ = {}));
+//labeler.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_form_field extends $.$mol_labeler {
+        label() {
+            return [this.name(), this.Bid()];
+        }
+        name() {
+            return "";
+        }
+        Bid() {
+            return ((obj) => {
+                obj.sub = () => [this.bid()];
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        bid() {
+            return "";
+        }
+        Content() {
+            return this.control();
+        }
+        control() {
+            return null;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_form_field.prototype, "Bid", null);
+    $.$mol_form_field = $mol_form_field;
+})($ || ($ = {}));
+//field.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tmargin-left: .5rem;\n\tdisplay: inline-block;\n}\n");
+})($ || ($ = {}));
+//field.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_switch extends $.$mol_view {
         minimal_height() {
             return 40;
@@ -6210,24 +6194,29 @@ var $;
     $.$my_tele2_settings = $my_tele2_settings;
 })($ || ($ = {}));
 (function ($) {
-    class $my_tele2 extends $.$my_tele2_settings {
-        tools() {
-            return [this.Source()];
+    class $my_tele2 extends $.$mol_book2 {
+        pages() {
+            return [this.Menu(), this.Settings()];
+        }
+        Menu() {
+            return ((obj) => {
+                obj.title = () => "Личные тарифы";
+                return obj;
+            })(new this.$.$mol_page());
+        }
+        Settings() {
+            return ((obj) => {
+                obj.tools = () => [this.Source()];
+                obj.body = () => [this.Groups(), this.Description()];
+                obj.foot = () => [this.Daily(), " или ", this.Monthly(), this.Order()];
+                return obj;
+            })(new this.$.$my_tele2_settings());
         }
         Source() {
             return ((obj) => {
                 obj.uri = () => "https://github.com/nin-jin/tele2";
                 return obj;
             })(new this.$.$mol_link_source());
-        }
-        body() {
-            return [this.Settings()];
-        }
-        Settings() {
-            return ((obj) => {
-                obj.sub = () => [this.Groups(), this.Description()];
-                return obj;
-            })(new this.$.$mol_form());
         }
         Groups() {
             return ((obj) => {
@@ -6246,9 +6235,6 @@ var $;
         }
         description() {
             return "";
-        }
-        foot() {
-            return [this.Daily(), " или ", this.Monthly(), this.Order()];
         }
         Daily() {
             return ((obj) => {
@@ -6333,10 +6319,13 @@ var $;
     }
     __decorate([
         $.$mol_mem
-    ], $my_tele2.prototype, "Source", null);
+    ], $my_tele2.prototype, "Menu", null);
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Settings", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Source", null);
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Groups", null);
@@ -6376,9 +6365,6 @@ var $;
     $.$my_tele2 = $my_tele2;
 })($ || ($ = {}));
 //tele2.view.tree.js.map
-;
-var $node = $node || {} ; $node[ "/my/tele2/logo/logo_128.png" ] = "data:image/png;base64,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"
-
 ;
 "use strict";
 //value.js.map
@@ -7258,7 +7244,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 auto;\n}\n\n[my_tele2_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n");
+    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_menu] {\n\tflex: 0 0 16rem;\n}\n\n[my_tele2_settings_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 60rem;\n}\n\n[my_tele2_settings_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_settings_head] {\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_settings_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
 ;
@@ -7457,5 +7443,88 @@ var $;
     $.$mol_plugin = $mol_plugin;
 })($ || ($ = {}));
 //plugin.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_form extends $.$mol_view {
+        submit_blocked() {
+            return false;
+        }
+        event() {
+            return (Object.assign(Object.assign({}, super.event()), { "keydown": (event) => this.keydown(event) }));
+        }
+        keydown(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        submit(event, force) {
+            return (event !== void 0) ? event : null;
+        }
+        sub() {
+            return [this.Bar_fields(), this.Bar_buttons()];
+        }
+        Bar_fields() {
+            return ((obj) => {
+                obj.sub = () => this.form_fields();
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        form_fields() {
+            return [];
+        }
+        Bar_buttons() {
+            return ((obj) => {
+                obj.sub = () => this.buttons();
+                return obj;
+            })(new this.$.$mol_row());
+        }
+        buttons() {
+            return [];
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "keydown", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "submit", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "Bar_fields", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_form.prototype, "Bar_buttons", null);
+    $.$mol_form = $mol_form;
+})($ || ($ = {}));
+//form.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/form/form.css", "[mol_form] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[mol_form_bar_fields] {\n\tdisplay: flex;\n\tflex-direction: column;\n}\n\n[mol_form_bar_fields] > * {\n\tmargin: .75rem;\n}\n\n[mol_form_bar_buttons] {\n\tbox-shadow: none;\n\tpadding: 0;\n}\n\n[mol_form_bar_buttons] > * {\n\tflex: 1 1 auto;\n}\n");
+})($ || ($ = {}));
+//form.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form extends $.$mol_form {
+            submit_blocked() {
+                return this.form_fields().some(field => field.bid());
+            }
+            keydown(next) {
+                if (next.ctrlKey && next.keyCode === $.$mol_keyboard_code.enter && !this.submit_blocked())
+                    this.submit(event);
+            }
+        }
+        __decorate([
+            $.$mol_mem
+        ], $mol_form.prototype, "submit_blocked", null);
+        $$.$mol_form = $mol_form;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//form.view.js.map
 
 //# sourceMappingURL=web.js.map

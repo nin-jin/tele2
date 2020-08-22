@@ -62,6 +62,11 @@ $mol_image $mol_view
 		src <= uri \
 		alt <= title
 
+$mol_book2 $mol_scroll
+	sub <= pages /$mol_view
+	minimal_width 0
+	Placeholder $mol_view
+
 $mol_link $mol_view
 	dom_name \a
 	attr *
@@ -114,6 +119,8 @@ $mol_link_source $mol_link
 	sub /
 		<= Icon $mol_icon_github_circle
 
+$mol_row $mol_view
+
 $mol_list $mol_view
 	render_visible_only true
 	render_over 0.5
@@ -124,37 +131,6 @@ $mol_list $mol_view
 	view_window /
 		0
 		0
-
-$mol_labeler $mol_list
-	rows /
-		<= Title $mol_view
-			minimal_height 21
-			sub <= label /$mol_view_content
-				<= title
-		<= Content $mol_view
-			minimal_height 24
-			sub <= content /
-
-$mol_form_field $mol_labeler
-	label /
-		<= name \
-		<= Bid $mol_view
-			sub / <= bid \
-	Content <= control null
-
-$mol_row $mol_view
-
-$mol_form $mol_view
-	submit_blocked false
-	event *
-		^
-		keydown?event <=> keydown?event null
-	submit?event null
-	sub /
-		<= Bar_fields $mol_view
-			sub <= form_fields /$mol_form_field
-		<= Bar_buttons $mol_row
-			sub <= buttons /$mol_view
 
 $my_tele2_group $mol_list
 	rows /
@@ -336,6 +312,23 @@ $mol_button_major $mol_button_typed
 		^
 		mol_theme \$mol_theme_accent
 
+$mol_labeler $mol_list
+	rows /
+		<= Title $mol_view
+			minimal_height 21
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
+$mol_form_field $mol_labeler
+	label /
+		<= name \
+		<= Bid $mol_view
+			sub / <= bid \
+	Content <= control null
+
 $mol_switch $mol_view
 	minimal_height 40
 	Option!id $mol_switch_option
@@ -365,30 +358,33 @@ $my_tele2_settings $mol_page
 		<= Title
 		<= Tools
 
-$my_tele2 $my_tele2_settings
-	tools /
-		<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
-	body /
-		<= Settings $mol_form
-			sub /
-				<= Groups $mol_row sub <= groups /$my_tele2_group
+$my_tele2 $mol_book2
+	pages /
+		<= Menu $mol_page
+			title \Личные тарифы
+		<= Settings $my_tele2_settings
+			tools /
+				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
+			body /
+				<= Groups $mol_row
+					sub <= groups /$my_tele2_group
 				<= Description $mol_text
 					text <= description \
-	foot /
-		<= Daily $mol_view
-			sub /
-				<= daily 0
-				<= currency \
-				\ в день
-		\ или 
-		<= Monthly $mol_view
-			sub /
-				<= monthly 0
-				<= currency \
-				\ за 30 дней
-		<= Order $mol_button_major
-			title <= order_title \Перейти
-			click?event <=> order?event null
+			foot /
+				<= Daily $mol_view
+					sub /
+						<= daily 0
+						<= currency \
+						\ в день
+				\ или 
+				<= Monthly $mol_view
+					sub /
+						<= monthly 0
+						<= currency \
+						\ за 30 дней
+				<= Order $mol_button_major
+					title <= order_title \Перейти
+					click?event <=> order?event null
 	-
 	Group!id $my_tele2_group
 		title <= group_title!id \
@@ -404,3 +400,15 @@ $my_tele2 $my_tele2_settings
 		title <= param_title!id \
 		checked?val <=> param_flag!id?val false
 
+
+$mol_form $mol_view
+	submit_blocked false
+	event *
+		^
+		keydown?event <=> keydown?event null
+	submit?event null
+	sub /
+		<= Bar_fields $mol_view
+			sub <= form_fields /$mol_form_field
+		<= Bar_buttons $mol_row
+			sub <= buttons /$mol_view
