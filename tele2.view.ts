@@ -82,6 +82,11 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem_key
+		param_partners( id : string ) {
+			return ( this.params()[ id ].link ?? [] ).map( uri => this.Partner( uri ) )
+		}
+
+		@ $mol_mem_key
 		param_string( id : string , next? : string ) {
 			return next ?? ( this.settings_current()[ id ] as string ) ?? this.params()[ id ].default!
 		}
@@ -117,6 +122,10 @@ namespace $.$$ {
 
 			}
 
+		}
+
+		partner_uri( uri : string ) {
+			return uri
 		}
 
 		@ $mol_mem

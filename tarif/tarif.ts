@@ -10,6 +10,7 @@ namespace $ {
 	export let $my_tele2_tarif_param = $mol_data_record({
 		title: $my_tele2_tarif_locale,
 		unit: $mol_data_optional( $my_tele2_tarif_locale ),
+		link: $mol_data_optional( $mol_data_array( $mol_data_string ) ),
 		icon: $mol_data_string,
 		cost: $mol_data_optional( $mol_data_integer ),
 		default: $mol_data_optional( $mol_data_string ),

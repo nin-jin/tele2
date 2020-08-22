@@ -83,3 +83,15 @@
 [my_tele2_daily] {
 	font-weight: bolder;
 }
+
+[my_tele2_partner] {
+	margin: -.5rem;
+}
+
+[my_tele2_param_flag] {
+	align-items: baseline;
+}
+
+[my_tele2_param_flag_title] {
+	margin: 0 .5rem;
+}
