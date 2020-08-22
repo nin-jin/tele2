@@ -71,12 +71,12 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		param_string( id : string , next? : string ) {
-			return next ?? this.settings()[ id ] ?? this.params()[ id ].default!
+			return next ?? String( this.settings()[ id ] ) ?? this.params()[ id ].default!
 		}
 
 		@ $mol_mem_key
 		param_flag( id : string , next? : boolean ) {
-			return next ?? this.settings()[ id ] ?? false
+			return next ?? ( this.settings()[ id ] === true ) ?? false
 		}
 
 		param_value( id: string ) {
