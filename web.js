@@ -5391,6 +5391,642 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            if (value !== undefined)
+                this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_base {
+        static formatter(pattern) {
+            if (this.patterns[pattern])
+                return this.patterns[pattern];
+            var tokens = Object.keys(this.patterns)
+                .sort()
+                .reverse()
+                .map((token) => token.replace(/([-+*.\[\]()\^])/g, '\\$1'));
+            var lexer = RegExp('(.*?)(' + tokens.join('|') + '|$)', 'g');
+            var funcs = [];
+            pattern.replace(lexer, (str, text, token) => {
+                if (text)
+                    funcs.push(() => text);
+                if (token)
+                    funcs.push(this.patterns[token]);
+                return str;
+            });
+            return this.patterns[pattern] = (arg) => {
+                return funcs.reduce((res, func) => res + func(arg), '');
+            };
+        }
+        toString(pattern) {
+            var Base = this.constructor;
+            var formatter = Base.formatter(pattern);
+            return formatter.call(Base, this);
+        }
+    }
+    $mol_time_base.patterns = {};
+    $.$mol_time_base = $mol_time_base;
+})($ || ($ = {}));
+//base.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_duration extends $.$mol_time_base {
+        constructor(config = 0) {
+            super();
+            this.year = 0;
+            this.month = 0;
+            this.day = 0;
+            this.hour = 0;
+            this.minute = 0;
+            this.second = 0;
+            if (typeof config === 'number') {
+                this.second = config / 1000;
+                return;
+            }
+            if (typeof config === 'string') {
+                if (config === 'Z') {
+                    this.hour = 0;
+                    this.minute = 0;
+                    return;
+                }
+                duration: {
+                    const parser = /^P(?:([+-]?\d+(?:\.\d+)?)Y)?(?:([+-]?\d+(?:\.\d+)?)M)?(?:([+-]?\d+(?:\.\d+)?)D)?(?:T(?:([+-]?\d+(?:\.\d+)?)h)?(?:([+-]?\d+(?:\.\d+)?)m)?(?:([+-]?\d+(?:\.\d+)?)s)?)?$/i;
+                    const found = parser.exec(config);
+                    if (!found)
+                        break duration;
+                    if (found[1])
+                        this.year = Number(found[1]);
+                    if (found[2])
+                        this.month = Number(found[2]);
+                    if (found[3])
+                        this.day = Number(found[3]);
+                    if (found[4])
+                        this.hour = Number(found[4]);
+                    if (found[5])
+                        this.minute = Number(found[5]);
+                    if (found[6])
+                        this.second = Number(found[6]);
+                    return;
+                }
+                offset: {
+                    var parser = /^[+-](\d\d)(?::?(\d\d))?$/i;
+                    var found = parser.exec(config);
+                    if (!found)
+                        break offset;
+                    if (found[1])
+                        this.hour = Number(found[1]);
+                    if (found[2])
+                        this.minute = Number(found[2]);
+                    return;
+                }
+                throw new Error(`Can not parse time duration (${config})`);
+            }
+            this.year = config.year || 0;
+            this.month = config.month || 0;
+            this.day = config.day || 0;
+            this.hour = config.hour || 0;
+            this.minute = config.minute || 0;
+            this.second = config.second || 0;
+        }
+        summ(config) {
+            const duration = new $mol_time_duration(config);
+            return new $mol_time_duration({
+                year: this.year + duration.year,
+                month: this.month + duration.month,
+                day: this.day + duration.day,
+                hour: this.hour + duration.hour,
+                minute: this.minute + duration.minute,
+                second: this.second + duration.second,
+            });
+        }
+        mult(numb) {
+            return new $mol_time_duration({
+                year: this.year && this.year * numb,
+                month: this.month && this.month * numb,
+                day: this.day && this.day * numb,
+                hour: this.hour && this.hour * numb,
+                minute: this.minute && this.minute * numb,
+                second: this.second && this.second * numb,
+            });
+        }
+        count(config) {
+            const duration = new $mol_time_duration(config);
+            return this.valueOf() / duration.valueOf();
+        }
+        valueOf() {
+            var day = this.year * 365 + this.month * 30.4 + this.day;
+            var second = ((day * 24 + this.hour) * 60 + this.minute) * 60 + this.second;
+            return second * 1000;
+        }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'P#Y#M#DT#h#m#s') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_duration.patterns = {
+        '#Y': (duration) => {
+            if (!duration.year)
+                return '';
+            return duration.year + 'Y';
+        },
+        '#M': (duration) => {
+            if (!duration.month)
+                return '';
+            return duration.month + 'M';
+        },
+        '#D': (duration) => {
+            if (!duration.day)
+                return '';
+            return duration.day + 'D';
+        },
+        '#h': (duration) => {
+            if (!duration.hour)
+                return '';
+            return duration.hour + 'H';
+        },
+        '#m': (duration) => {
+            if (!duration.minute)
+                return '';
+            return duration.minute + 'M';
+        },
+        '#s': (duration) => {
+            if (!duration.second)
+                return '';
+            return duration.second + 'S';
+        },
+        '+hh': (duration) => {
+            var hour = duration.hour;
+            var sign = '+';
+            if (hour < 0) {
+                sign = '-';
+                hour = -hour;
+            }
+            return (hour < 10)
+                ? (sign + '0' + hour)
+                : (sign + hour);
+        },
+        'mm': (duration) => {
+            return (duration.minute < 10)
+                ? ('0' + duration.minute)
+                : String(duration.minute);
+        },
+    };
+    $.$mol_time_duration = $mol_time_duration;
+})($ || ($ = {}));
+//duration.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_time_moment extends $.$mol_time_base {
+        constructor(config = new Date) {
+            super();
+            if (typeof config === 'number')
+                config = new Date(config);
+            if (typeof config === 'string') {
+                const parsed = /^(?:(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d))?)?)?(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d(?:\.\d+)?))?)?(Z|[\+\-]\d\d(?::?(?:\d\d)?)?)?)?$/.exec(config);
+                if (!parsed)
+                    throw new Error(`Can not parse time moment (${config})`);
+                if (parsed[1])
+                    this.year = Number(parsed[1]);
+                if (parsed[2])
+                    this.month = Number(parsed[2]) - 1;
+                if (parsed[3])
+                    this.day = Number(parsed[3]) - 1;
+                if (parsed[4])
+                    this.hour = Number(parsed[4]);
+                if (parsed[5])
+                    this.minute = Number(parsed[5]);
+                if (parsed[6])
+                    this.second = Number(parsed[6]);
+                if (parsed[7])
+                    this.offset = new $.$mol_time_duration(parsed[7]);
+                return;
+            }
+            if (config instanceof Date) {
+                this.year = config.getFullYear();
+                this.month = config.getMonth();
+                this.day = config.getDate() - 1;
+                this.hour = config.getHours();
+                this.minute = config.getMinutes();
+                this.second = config.getSeconds() + config.getMilliseconds() / 1000;
+                const offset = -config.getTimezoneOffset();
+                this.offset = new $.$mol_time_duration({
+                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
+                    minute: offset % 60
+                });
+                return;
+            }
+            this.year = config.year;
+            this.month = config.month;
+            this.day = config.day;
+            this.hour = config.hour;
+            this.minute = config.minute;
+            this.second = config.second;
+            this.offset = config.offset == null ? config.offset : new $.$mol_time_duration(config.offset);
+        }
+        get weekday() {
+            return (this.native.getDay() + 6) % 7;
+        }
+        get native() {
+            var _a, _b, _c, _d, _e;
+            if (this._native)
+                return this._native;
+            const utc = this.toOffset('Z');
+            return this._native = new Date(Date.UTC((_a = utc.year) !== null && _a !== void 0 ? _a : 0, (_b = utc.month) !== null && _b !== void 0 ? _b : 0, ((_c = utc.day) !== null && _c !== void 0 ? _c : 0) + 1, (_d = utc.hour) !== null && _d !== void 0 ? _d : 0, (_e = utc.minute) !== null && _e !== void 0 ? _e : 0, utc.second != undefined ? Math.floor(utc.second) : 0, utc.second != undefined ? Math.floor((utc.second - Math.floor(utc.second)) * 1000) : 0));
+        }
+        get normal() {
+            if (this._normal)
+                return this._normal;
+            const moment = new $mol_time_moment(this.native);
+            return this._normal = new $mol_time_moment({
+                year: this.year === undefined ? undefined : moment.year,
+                month: this.month === undefined ? undefined : moment.month,
+                day: this.day === undefined ? undefined : moment.day,
+                hour: this.hour === undefined ? undefined : moment.hour,
+                minute: this.minute === undefined ? undefined : moment.minute,
+                second: this.second === undefined ? undefined : moment.second,
+                offset: this.offset === undefined ? undefined : moment.offset,
+            });
+        }
+        merge(config) {
+            const moment = new $mol_time_moment(config);
+            return new $mol_time_moment({
+                year: moment.year === undefined ? this.year : moment.year,
+                month: moment.month === undefined ? this.month : moment.month,
+                day: moment.day === undefined ? this.day : moment.day,
+                hour: moment.hour === undefined ? this.hour : moment.hour,
+                minute: moment.minute === undefined ? this.minute : moment.minute,
+                second: moment.second === undefined ? this.second : moment.second,
+                offset: moment.offset === undefined ? this.offset : moment.offset,
+            });
+        }
+        shift(config) {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+            const duration = new $.$mol_time_duration(config);
+            const moment = new $mol_time_moment().merge({
+                year: this.year,
+                month: this.month,
+                day: this.day,
+                hour: (_a = this.hour) !== null && _a !== void 0 ? _a : 0,
+                minute: (_b = this.minute) !== null && _b !== void 0 ? _b : 0,
+                second: (_c = this.second) !== null && _c !== void 0 ? _c : 0,
+                offset: (_d = this.offset) !== null && _d !== void 0 ? _d : 0
+            });
+            const second = moment.second + ((_e = duration.second) !== null && _e !== void 0 ? _e : 0);
+            const native = new Date(moment.year + ((_f = duration.year) !== null && _f !== void 0 ? _f : 0), moment.month + ((_g = duration.month) !== null && _g !== void 0 ? _g : 0), moment.day + 1 + ((_h = duration.day) !== null && _h !== void 0 ? _h : 0), moment.hour + ((_j = duration.hour) !== null && _j !== void 0 ? _j : 0), moment.minute + ((_k = duration.minute) !== null && _k !== void 0 ? _k : 0), Math.floor(second), (second - Math.floor(second)) * 1000);
+            if (isNaN(native.valueOf()))
+                throw new Error('Wrong time');
+            return new $mol_time_moment({
+                year: this.year === undefined ? undefined : native.getFullYear(),
+                month: this.month === undefined ? undefined : native.getMonth(),
+                day: this.day === undefined ? undefined : native.getDate() - 1,
+                hour: this.hour === undefined ? undefined : native.getHours(),
+                minute: this.minute === undefined ? undefined : native.getMinutes(),
+                second: this.second === undefined ? undefined : native.getSeconds() + native.getMilliseconds() / 1000,
+                offset: this.offset,
+            });
+        }
+        mask(config) {
+            const mask = new $mol_time_moment(config);
+            return new $mol_time_moment({
+                year: mask.year === undefined ? undefined : this.year,
+                month: mask.month === undefined ? undefined : this.month,
+                day: mask.day === undefined ? undefined : this.day,
+                hour: mask.hour === undefined ? undefined : this.hour,
+                minute: mask.minute === undefined ? undefined : this.minute,
+                second: mask.second === undefined ? undefined : this.second,
+                offset: mask.offset === undefined ? undefined : this.offset,
+            });
+        }
+        toOffset(config) {
+            if (this.hour === undefined)
+                return this;
+            if (this.minute === undefined)
+                return this;
+            if (this.second === undefined)
+                return this;
+            const duration = new $.$mol_time_duration(config);
+            const offset = this.offset || new $mol_time_moment().offset;
+            const moment = this.shift(duration.summ(offset.mult(-1)));
+            return moment.merge({ offset: duration });
+        }
+        valueOf() { return this.native.getTime(); }
+        toJSON() { return this.toString(); }
+        toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
+            return super.toString(pattern);
+        }
+    }
+    $mol_time_moment.patterns = {
+        'YYYY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year);
+        },
+        'AD': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(Math.floor(moment.year / 100) + 1);
+        },
+        'YY': (moment) => {
+            if (moment.year == null)
+                return '';
+            return String(moment.year % 100);
+        },
+        'Month': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'long' });
+        },
+        'DD Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'long' });
+        },
+        'D Month': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'long' });
+        },
+        'Mon': (moment) => {
+            if (moment.month == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { month: 'short' });
+        },
+        'DD Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: '2-digit', month: 'short' });
+        },
+        'D Mon': (moment) => {
+            return moment.native.toLocaleString(undefined, { day: 'numeric', month: 'short' });
+        },
+        '-MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['MM'](moment);
+        },
+        'MM': (moment) => {
+            if (moment.month == null)
+                return '';
+            const month = moment.month + 1;
+            return (month < 10)
+                ? ('0' + month)
+                : ('' + month);
+        },
+        'M': (moment) => {
+            if (moment.month == null)
+                return '';
+            return String(moment.month + 1);
+        },
+        'WeekDay': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'long' });
+        },
+        'WD': (moment) => {
+            if (moment.weekday == null)
+                return '';
+            return moment.native.toLocaleString(undefined, { weekday: 'short' });
+        },
+        '-DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            return '-' + $mol_time_moment.patterns['DD'](moment);
+        },
+        'DD': (moment) => {
+            if (moment.day == null)
+                return '';
+            const day = moment.day + 1;
+            return (day < 10)
+                ? ('0' + day)
+                : String(day);
+        },
+        'D': (moment) => {
+            if (moment.day == null)
+                return '';
+            return String(moment.day + 1);
+        },
+        'Thh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return 'T' + $mol_time_moment.patterns['hh'](moment);
+        },
+        'hh': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return (moment.hour < 10)
+                ? ('0' + moment.hour)
+                : String(moment.hour);
+        },
+        'h': (moment) => {
+            if (moment.hour == null)
+                return '';
+            return String(moment.hour);
+        },
+        ':mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['mm'](moment);
+        },
+        'mm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return (moment.minute < 10)
+                ? ('0' + moment.minute)
+                : String(moment.minute);
+        },
+        'm': (moment) => {
+            if (moment.minute == null)
+                return '';
+            return String(moment.minute);
+        },
+        ':ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            return ':' + $mol_time_moment.patterns['ss'](moment);
+        },
+        'ss': (moment) => {
+            if (moment.second == null)
+                return '';
+            const second = Math.floor(moment.second);
+            return (second < 10)
+                ? ('0' + second)
+                : String(second);
+        },
+        's': (moment) => {
+            if (moment.second == null)
+                return '';
+            return String(Math.floor(moment.second));
+        },
+        '.sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            if (moment.second - Math.floor(moment.second) === 0)
+                return '';
+            return '.' + $mol_time_moment.patterns['sss'](moment);
+        },
+        'sss': (moment) => {
+            if (moment.second == null)
+                return '';
+            const millisecond = Math.floor((moment.second - Math.floor(moment.second)) * 1000);
+            return (millisecond < 10)
+                ? ('00' + millisecond)
+                : (millisecond < 100)
+                    ? ('0' + millisecond)
+                    : String(millisecond);
+        },
+        'Z': (moment) => {
+            const offset = moment.offset;
+            if (!offset)
+                return '';
+            return offset.toString('+hh:mm');
+        }
+    };
+    $.$mol_time_moment = $mol_time_moment;
+})($ || ($ = {}));
+//moment.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_stub_select_random(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+    $.$mol_stub_select_random = $mol_stub_select_random;
+    function $mol_stub_strings(prefix = '', count = 10, length = 10) {
+        if (prefix.length >= length)
+            return [];
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split('');
+        let strings = [];
+        for (let i = 0; i < count; i++) {
+            let text = prefix;
+            for (let j = prefix.length; j < length; j++) {
+                text += $mol_stub_select_random(possible);
+            }
+            strings.push(text);
+        }
+        return strings;
+    }
+    $.$mol_stub_strings = $mol_stub_strings;
+    function $mol_stub_code(length = 8) {
+        var max = Math.pow(16, length);
+        var min = Math.pow(16, length - 1);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return value.toString(16).toUpperCase();
+    }
+    $.$mol_stub_code = $mol_stub_code;
+    function $mol_stub_price(max = 1000) {
+        var min = Math.floor(max / 16 / 16);
+        var value = min + Math.floor(Math.random() * (max - min));
+        return new $.$mol_unit_money_usd(value);
+    }
+    $.$mol_stub_price = $mol_stub_price;
+    function $mol_stub_product_name() {
+        var name = $mol_stub_select_random([
+            'Monitor 15"',
+            'Monitor 17"',
+            'Monitor 19"',
+            'Graphics card',
+            'Frame grabber card'
+        ]);
+        var port = $mol_stub_select_random(['D-SUB', 'DVI', 'HDMI']);
+        var resolution = $mol_stub_select_random(['VGA', 'Full HD', '4K']);
+        return [name, port, resolution].join(', ');
+    }
+    $.$mol_stub_product_name = $mol_stub_product_name;
+    function $mol_stub_company_name_big() {
+        var product = $mol_stub_select_random(['Everything', 'Something', 'Anything', 'Nothing']);
+        var type = $mol_stub_select_random(['Company', 'Corporation', 'Holding']);
+        return `A ${type} that makes ${product}`;
+    }
+    $.$mol_stub_company_name_big = $mol_stub_company_name_big;
+    function $mol_stub_company_name_small() {
+        return $mol_stub_select_random(['ACME inc.', 'Dream Company', 'Just Company']);
+    }
+    $.$mol_stub_company_name_small = $mol_stub_company_name_small;
+    function $mol_stub_company_name() {
+        return $mol_stub_select_random([$mol_stub_company_name_small, $mol_stub_company_name_big])();
+    }
+    $.$mol_stub_company_name = $mol_stub_company_name;
+    function $mol_stub_person_name() {
+        var first = $mol_stub_select_random(['Ivan', 'Petr', 'Sidor']);
+        var last = $mol_stub_select_random(['Ivanov', 'Petrov', 'Sidorov']);
+        return `${first} ${last}`;
+    }
+    $.$mol_stub_person_name = $mol_stub_person_name;
+    function $mol_stub_city() {
+        return $mol_stub_select_random(['Moscow', 'London', 'Washington', 'Buenos Aires']);
+    }
+    $.$mol_stub_city = $mol_stub_city;
+    function $mol_stub_time(maxShift = 60 * 24 * 365) {
+        return new $.$mol_time_moment().shift({ minute: Math.round(Math.random() * maxShift) });
+    }
+    $.$mol_stub_time = $mol_stub_time;
+    function $mol_stub_message(max_length) {
+        const text = ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.';
+        return text.substring(0, Math.ceil(Math.random() * max_length - 5) + 5);
+    }
+    $.$mol_stub_message = $mol_stub_message;
+})($ || ($ = {}));
+//stub.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_shared extends $.$mol_object2 {
         static cache(key, next) {
             return this.$.$mol_fetch.json('https://shared-cache.herokuapp.com/' + key, next && {
@@ -5466,11 +6102,11 @@ var $;
             }
             param_string(id, next) {
                 var _a;
-                return (_a = next !== null && next !== void 0 ? next : String(this.settings()[id])) !== null && _a !== void 0 ? _a : this.params()[id].default;
+                return (_a = next !== null && next !== void 0 ? next : this.settings_current()[id]) !== null && _a !== void 0 ? _a : this.params()[id].default;
             }
             param_flag(id, next) {
                 var _a;
-                return (_a = next !== null && next !== void 0 ? next : (this.settings()[id] === true)) !== null && _a !== void 0 ? _a : false;
+                return (_a = next !== null && next !== void 0 ? next : (this.settings_current()[id] === true)) !== null && _a !== void 0 ? _a : false;
             }
             param_value(id) {
                 switch (this.param_type(id)) {
@@ -5503,16 +6139,24 @@ var $;
             monthly() {
                 return this.daily() * 30;
             }
-            settings(next) {
+            settings_id(next) {
                 var _a;
-                return (_a = $.$mol_shared.cache('settings', next)) !== null && _a !== void 0 ? _a : {};
+                return (_a = this.$.$mol_state_arg.value('settings', next)) !== null && _a !== void 0 ? _a : $.$mol_stub_code();
+            }
+            settings(id, next) {
+                var _a;
+                return (_a = $.$mol_shared.cache(`settings=${id}`, next)) !== null && _a !== void 0 ? _a : {};
+            }
+            settings_current(next) {
+                return this.settings(this.settings_id(), next);
             }
             order() {
                 const settings = {};
                 for (const param in this.params()) {
                     settings[param] = this.param_value(param);
                 }
-                this.settings(settings);
+                this.settings_current(settings);
+                this.settings_id(this.settings_id());
             }
         }
         __decorate([
@@ -5550,7 +6194,13 @@ var $;
         ], $my_tele2.prototype, "daily", null);
         __decorate([
             $.$mol_mem
+        ], $my_tele2.prototype, "settings_id", null);
+        __decorate([
+            $.$mol_mem_key
         ], $my_tele2.prototype, "settings", null);
+        __decorate([
+            $.$mol_fiber.method
+        ], $my_tele2.prototype, "order", null);
         $$.$my_tele2 = $my_tele2;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
