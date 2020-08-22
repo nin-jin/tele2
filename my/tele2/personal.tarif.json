@@ -1,93 +1,97 @@
 {
-	"main": {
-		"title": { "ru": "Пакеты" },
-		"icon": "",
-		"param": {
-			"mobile": {
-				"title": { "ru": "Звонки" },
-				"unit": { "ru": "минут/день" },
-				"icon": "",
-				"default": "20",
-				"option": {
-					"0": { "title": "0", "cost": 0 },
-					"20": { "title": "20", "cost": 1 },
-					"40": { "title": "40", "cost": 2 },
-					"60": { "title": "60", "cost": 3 },
-					"120": { "title": "120", "cost": 4 }
-				}
-			},
-			"internet": {
-				"title": { "ru": "Интернет" },
-				"unit": { "ru": "мегабайт/день" },
-				"icon": "",
-				"default": "100",
-				"option": {
-					"0": { "title": "0", "cost": 0 },
-					"100": { "title": "100", "cost": 1 },
-					"500": { "title": "500", "cost": 2 },
-					"1000": { "title": "1000", "cost": 3 },
-					"2000": { "title": "2000", "cost": 4 }
-				}
-			},
-			"sms": {
-				"title": { "ru": "SMS" },
-				"unit": { "ru": "штук/день" },
-				"icon": "",
-				"default": "100",
-				"option": {
-					"0": { "title": "0", "cost": 0 },
-					"100": { "title": "100", "cost": 1 },
-					"200": { "title": "200", "cost": 2 },
-					"400": { "title": "400", "cost": 3 },
-					"1000": { "title": "1000", "cost": 4 }
+	"description": { "ru": "При превышении суточного лимита автоматически приходит уведомление с предложением поднять лимит на 1 день. Скорость всегда максимально возможная." },
+	"currency": "₽",
+	"group": {
+		"main": {
+			"title": { "ru": "Пакеты" },
+			"icon": "",
+			"param": {
+				"mobile": {
+					"title": { "ru": "Звонки" },
+					"unit": { "ru": "минут/день" },
+					"icon": "",
+					"default": "20",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"20": { "title": "20", "cost": 1 },
+						"40": { "title": "40", "cost": 2 },
+						"60": { "title": "60", "cost": 3 },
+						"120": { "title": "120", "cost": 4 }
+					}
+				},
+				"internet": {
+					"title": { "ru": "Интернет" },
+					"unit": { "ru": "мегабайт/день" },
+					"icon": "",
+					"default": "100",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"100": { "title": "100", "cost": 1 },
+						"500": { "title": "500", "cost": 2 },
+						"1000": { "title": "1000", "cost": 3 },
+						"2000": { "title": "2000", "cost": 4 }
+					}
+				},
+				"sms": {
+					"title": { "ru": "SMS" },
+					"unit": { "ru": "штук/день" },
+					"icon": "",
+					"default": "100",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"100": { "title": "100", "cost": 1 },
+						"200": { "title": "200", "cost": 2 },
+						"400": { "title": "400", "cost": 3 },
+						"1000": { "title": "1000", "cost": 4 }
+					}
 				}
 			}
-		}
-	},
-	"unlim": {
-		"title": { "ru": "Безлимиты" },
-		"icon": "",
-		"param": {
-			"social": {
-				"title": { "ru": "Социальные сети" },
-				"icon": "",
-				"cost": 5
-			},
-			"messanger": {
-				"title": { "ru": "Менссенджеры" },
-				"icon": "",
-				"cost": 5
-			},
-			"video": {
-				"title": { "ru": "Видеохостинги" },
-				"icon": "",
-				"cost": 5
-			},
-			"music": {
-				"title": { "ru": "Музыка" },
-				"icon": "",
-				"cost": 5
-			},
-			"games": {
-				"title": { "ru": "Игры" },
-				"icon": "",
-				"cost": 5
+		},
+		"unlim": {
+			"title": { "ru": "Безлимиты" },
+			"icon": "",
+			"param": {
+				"social": {
+					"title": { "ru": "Социальные сети" },
+					"icon": "",
+					"cost": 5
+				},
+				"messanger": {
+					"title": { "ru": "Менссенджеры" },
+					"icon": "",
+					"cost": 5
+				},
+				"video": {
+					"title": { "ru": "Видеохостинги" },
+					"icon": "",
+					"cost": 5
+				},
+				"music": {
+					"title": { "ru": "Музыка" },
+					"icon": "",
+					"cost": 5
+				},
+				"games": {
+					"title": { "ru": "Игры" },
+					"icon": "",
+					"cost": 5
+				}
 			}
-		}
-	},
-	"bonus": {
-		"title": { "ru": "Партнёрские программы" },
-		"icon": "",
-		"param": {
-			"kafe": {
-				"title": { "ru": "Кафе и рестораны" },
-				"icon": "",
-				"cost": 5
-			},
-			"shop": {
-				"title": { "ru": "Магазины" },
-				"icon": "",
-				"cost": 5
+		},
+		"bonus": {
+			"title": { "ru": "Партнёрские программы" },
+			"icon": "",
+			"param": {
+				"kafe": {
+					"title": { "ru": "Кафе и рестораны" },
+					"icon": "",
+					"cost": 5
+				},
+				"shop": {
+					"title": { "ru": "Магазины" },
+					"icon": "",
+					"cost": 5
+				}
 			}
 		}
 	}
