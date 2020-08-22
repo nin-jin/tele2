@@ -5271,11 +5271,15 @@ var $;
         Order() {
             return ((obj) => {
                 obj.title = () => this.order_title();
+                obj.click = (event) => this.order(event);
                 return obj;
             })(new this.$.$mol_button_major());
         }
         order_title() {
             return "Перейти";
+        }
+        order(event, force) {
+            return (event !== void 0) ? event : null;
         }
         Group(id) {
             return ((obj) => {
@@ -5345,6 +5349,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Order", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "order", null);
     __decorate([
         $.$mol_mem_key
     ], $my_tele2.prototype, "Group", null);
@@ -5745,6 +5752,24 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_shared extends $.$mol_object2 {
+        static cache(key, next) {
+            return this.$.$mol_fetch.json('https://shared-cache.herokuapp.com/' + key, next && {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(next, null, '\t'),
+            });
+        }
+    }
+    $.$mol_shared = $mol_shared;
+})($ || ($ = {}));
+//shared.js.map
+;
+"use strict";
+var $;
+(function ($) {
     $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_body] {\n\tjustify-content: center;\n}\n\n[my_tele2_groups] {\n\tmargin: auto;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
@@ -5801,7 +5826,18 @@ var $;
                 return options;
             }
             param_string(id, next) {
-                return next !== null && next !== void 0 ? next : this.params()[id].default;
+                var _a;
+                return (_a = next !== null && next !== void 0 ? next : String(this.settings()[id])) !== null && _a !== void 0 ? _a : this.params()[id].default;
+            }
+            param_flag(id, next) {
+                var _a;
+                return (_a = next !== null && next !== void 0 ? next : (this.settings()[id] === true)) !== null && _a !== void 0 ? _a : false;
+            }
+            param_value(id) {
+                switch (this.param_type(id)) {
+                    case 'switch': return this.param_string(id);
+                    case 'flag': return this.param_flag(id);
+                }
             }
             param_cost(id) {
                 switch (this.param_type(id)) {
@@ -5827,6 +5863,17 @@ var $;
             }
             monthly() {
                 return this.daily() * 30;
+            }
+            settings(next) {
+                var _a;
+                return (_a = $.$mol_shared.cache('settings', next)) !== null && _a !== void 0 ? _a : {};
+            }
+            order() {
+                const settings = {};
+                for (const param in this.params()) {
+                    settings[param] = this.param_value(param);
+                }
+                this.settings(settings);
             }
         }
         __decorate([
@@ -5857,8 +5904,14 @@ var $;
             $.$mol_mem_key
         ], $my_tele2.prototype, "param_string", null);
         __decorate([
+            $.$mol_mem_key
+        ], $my_tele2.prototype, "param_flag", null);
+        __decorate([
             $.$mol_mem
         ], $my_tele2.prototype, "daily", null);
+        __decorate([
+            $.$mol_mem
+        ], $my_tele2.prototype, "settings", null);
         $$.$my_tele2 = $my_tele2;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

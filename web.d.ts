@@ -1682,6 +1682,7 @@ declare namespace $ {
         monthly(): number;
         Order(): $mol_button_major;
         order_title(): string;
+        order(event?: any, force?: $mol_mem_force): any;
         Group(id: any): $my_tele2_group;
         group_title(id: any): string;
         group_params(id: any): readonly any[];
@@ -2297,6 +2298,12 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_shared extends $mol_object2 {
+        static cache<Value>(key: string, next?: Value): Value;
+    }
+}
+
+declare namespace $ {
 }
 
 declare namespace $.$$ {
@@ -2351,9 +2358,13 @@ declare namespace $.$$ {
         param_title(id: string): string;
         param_options(id: string): Record<string, string>;
         param_string(id: string, next?: string): string;
+        param_flag(id: string, next?: boolean): boolean;
+        param_value(id: string): string | boolean;
         param_cost(id: string): number;
         daily(): number;
         monthly(): number;
+        settings(next?: Record<string, string | boolean>): Record<string, string | boolean>;
+        order(): void;
     }
 }
 
