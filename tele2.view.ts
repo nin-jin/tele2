@@ -119,6 +119,7 @@ namespace $.$$ {
 			return this.daily() * 30
 		}
 
+		@ $mol_mem
 		settings( next?: Record< string , string | boolean > ) {
 			return $mol_shared.cache( 'settings' , next ) ?? {}
 		}
