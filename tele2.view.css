@@ -7,6 +7,10 @@
 	--mol_theme_hover: #F050A0;
 }
 
+[my_tele2] [mol_button_typed] {
+	border-radius: 2rem;
+}
+
 [my_tele2_logo] {
 	width: 40px;
 }
