@@ -19,20 +19,23 @@
 	justify-content: center;
 }
 
-[my_tele2_body] {
-	justify-content: center;
+[my_tele2_settings] {
+	flex: 1 0 auto;
 }
 
 [my_tele2_groups] {
-	margin: auto;
+	justify-content: space-evenly;
+	align-content: space-evenly;
 }
 
 [my_tele2_group] {
 	margin: 0;
+	flex: 0 0 20rem;
 }
 
 [my_tele2_group_title] {
 	padding: 0 .75rem;
+	font-weight: bolder;
 }
 
 [my_tele2_group_params] {
