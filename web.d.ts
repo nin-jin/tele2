@@ -1675,6 +1675,11 @@ declare namespace $ {
         Settings(): $$.$mol_form;
         Groups(): $mol_row;
         groups(): readonly $my_tele2_group[];
+        foot(): readonly any[];
+        Daily(): $mol_view;
+        daily(): number;
+        Monthly(): $mol_view;
+        monthly(): number;
         Order(): $mol_button_major;
         order_title(): string;
         Group(id: any): $my_tele2_group;
@@ -2347,8 +2352,8 @@ declare namespace $.$$ {
         param_options(id: string): Record<string, string>;
         param_string(id: string, next?: string): string;
         param_cost(id: string): number;
-        total(): number;
-        order_title(): string;
+        daily(): number;
+        monthly(): number;
     }
 }
 

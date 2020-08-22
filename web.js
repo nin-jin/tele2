@@ -5029,7 +5029,7 @@ var $;
         }
         Settings() {
             return ((obj) => {
-                obj.sub = () => [this.Groups(), this.Order()];
+                obj.sub = () => [this.Groups()];
                 return obj;
             })(new this.$.$mol_form());
         }
@@ -5042,6 +5042,27 @@ var $;
         groups() {
             return [];
         }
+        foot() {
+            return [this.Daily(), " или ", this.Monthly(), this.Order()];
+        }
+        Daily() {
+            return ((obj) => {
+                obj.sub = () => [this.daily(), "₽ в день"];
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        daily() {
+            return 0;
+        }
+        Monthly() {
+            return ((obj) => {
+                obj.sub = () => [this.monthly(), "₽ за 30 дней"];
+                return obj;
+            })(new this.$.$mol_view());
+        }
+        monthly() {
+            return 0;
+        }
         Order() {
             return ((obj) => {
                 obj.title = () => this.order_title();
@@ -5049,7 +5070,7 @@ var $;
             })(new this.$.$mol_button_major());
         }
         order_title() {
-            return "Подключить за {total}₽ в день";
+            return "Перейти";
         }
         Group(id) {
             return ((obj) => {
@@ -5110,6 +5131,12 @@ var $;
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Groups", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Daily", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Monthly", null);
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Order", null);
@@ -5357,7 +5384,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/tele2/tele2.view.css", "[my_tele2_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_groups] {\n\tmargin: auto;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n");
+    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_body] {\n\tjustify-content: center;\n}\n\n[my_tele2_groups] {\n\tmargin: auto;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
 ;
@@ -5431,14 +5458,14 @@ var $;
                     }
                 }
             }
-            total() {
+            daily() {
                 const params = Object.keys(this.params());
                 const costs = params.map(id => this.param_cost(id));
                 const res = costs.reduce((a, b) => a + b);
                 return res;
             }
-            order_title() {
-                return super.order_title().replace('{total}', this.total().toString());
+            monthly() {
+                return this.daily() * 30;
             }
         }
         __decorate([
@@ -5470,10 +5497,7 @@ var $;
         ], $my_tele2.prototype, "param_string", null);
         __decorate([
             $.$mol_mem
-        ], $my_tele2.prototype, "total", null);
-        __decorate([
-            $.$mol_mem
-        ], $my_tele2.prototype, "order_title", null);
+        ], $my_tele2.prototype, "daily", null);
         $$.$my_tele2 = $my_tele2;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
