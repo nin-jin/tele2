@@ -71,12 +71,12 @@ namespace $.$$ {
 
 		@ $mol_mem_key
 		param_string( id : string , next? : string ) {
-			return next ?? String( this.settings()[ id ] ) ?? this.params()[ id ].default!
+			return next ?? ( this.settings_current()[ id ] as string ) ?? this.params()[ id ].default!
 		}
 
 		@ $mol_mem_key
 		param_flag( id : string , next? : boolean ) {
-			return next ?? ( this.settings()[ id ] === true ) ?? false
+			return next ?? ( this.settings_current()[ id ] === true ) ?? false
 		}
 
 		param_value( id: string ) {
@@ -120,16 +120,27 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		settings( next?: Record< string , string | boolean > ) {
-			return $mol_shared.cache( 'settings' , next ) ?? {}
+		settings_id( next? : string ) {
+			return this.$.$mol_state_arg.value( 'settings' , next ) ?? $mol_stub_code()
 		}
 
+		@ $mol_mem_key
+		settings( id : string , next?: Record< string , string | boolean > ) {
+			return $mol_shared.cache( `settings=${id}` , next ) ?? {}
+		}
+
+		settings_current( next?: Record< string , string | boolean > ) {
+			return this.settings( this.settings_id() , next )
+		}
+
+		@ $mol_fiber.method
 		order() {
 			const settings = {} as Record< string , string | boolean >
 			for( const param in this.params() ) {
 				settings[ param ] = this.param_value( param )
 			}
-			this.settings( settings )
+			this.settings_current( settings )
+			this.settings_id( this.settings_id() )
 		}
 
 	}
