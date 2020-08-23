@@ -2,9 +2,14 @@ namespace $.$$ {
 
 	export class $my_tele2 extends $.$my_tele2 {
 
+		scheme_name() {
+			return this.$.$mol_state_arg.value( 'scheme' ) ?? 'smart'
+		}
+
 		@ $mol_mem
 		tarif_scheme() {
-			return $my_tele2_tarif_scheme( this.$.$mol_fetch.json('my/tele2/personal.tarif.json') )
+			const uri = `my/tele2/${ this.scheme_name() }.tarif.json`
+			return $my_tele2_tarif_scheme( this.$.$mol_fetch.json( uri ) )
 		}
 
 		@ $mol_mem

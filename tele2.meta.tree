@@ -1,4 +1,6 @@
 deploy \/my/tele2/personal.tarif.json
+deploy \/my/tele2/smart.tarif.json
+deploy \/my/tele2/business.tarif.json
 deploy \/my/tele2/logo/logo_128.png
 
 include \/mol/offline/install
