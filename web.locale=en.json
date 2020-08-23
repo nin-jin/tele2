@@ -1,3 +1,11 @@
 {
-	"$mol_link_source_hint": "Source code"
+	"$mol_link_source_hint": "Source code",
+	"$my_tele2_business_link_title": "Business scheme",
+	"$my_tele2_daily_suffix": " per day",
+	"$my_tele2_label_or": " or ",
+	"$my_tele2_menu_title": "Personal tarif",
+	"$my_tele2_personal_link_title": "Manual scheme",
+	"$my_tele2_settings_title": "Configure Tele2 for yourself",
+	"$my_tele2_smart_link_title": "Smart scheme",
+	"$my_tele2_tarif_name_default": "Custom tarif"
 }

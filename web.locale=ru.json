@@ -1,3 +1,11 @@
 {
-	"$mol_link_source_hint": "Исходные коды"
+	"$mol_link_source_hint": "Исходные коды",
+	"$my_tele2_business_link_title": "Корпоративная схема",
+	"$my_tele2_daily_suffix": " в день",
+	"$my_tele2_label_or": " или ",
+	"$my_tele2_menu_title": "Личные тарифы",
+	"$my_tele2_personal_link_title": "Ручная схема",
+	"$my_tele2_settings_title": "Настрой Tele2 под себя",
+	"$my_tele2_smart_link_title": "Умная схема",
+	"$my_tele2_tarif_name_default": "Индивидуальный тариф"
 }
