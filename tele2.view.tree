@@ -47,7 +47,7 @@ $my_tele2 $mol_book2
 						<= currency \
 						<= monthly_suffix \ for 30 days
 				<= Order $mol_button_major
-					title <= order_title \Switch
+					title <= order_title @ \Switch
 					enabled <= order_enabled true
 					click?event <=> order?event null
 	-
