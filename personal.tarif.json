@@ -3,12 +3,12 @@
 	"currency": "₽",
 	"group": {
 		"main": {
-			"title": { "ru": "Пакеты" },
+			"title": { "ru": "Пакеты" , "en": "Packages" },
 			"icon": "",
 			"param": {
 				"mobile": {
-					"title": { "ru": "Звонки" },
-					"unit": { "ru": "минут/день" },
+					"title": { "ru": "Звонки" , "en": "Calls" },
+					"unit": { "ru": "минут/день" , "en": "minute/day" },
 					"icon": "",
 					"default": "20",
 					"option": {
@@ -20,8 +20,8 @@
 					}
 				},
 				"internet": {
-					"title": { "ru": "Интернет" },
-					"unit": { "ru": "Гигабайт/день" },
+					"title": { "ru": "Интернет" , "en": "Internet" },
+					"unit": { "ru": "Гигабайт/день" , "en": "Gigabyte/day" },
 					"icon": "",
 					"default": "5",
 					"option": {
@@ -34,7 +34,7 @@
 				},
 				"sms": {
 					"title": { "ru": "SMS" },
-					"unit": { "ru": "штук/день" },
+					"unit": { "ru": "штук/день" , "en": "pc/day" },
 					"icon": "",
 					"default": "100",
 					"option": {
@@ -48,11 +48,11 @@
 			}
 		},
 		"unlim": {
-			"title": { "ru": "Безлимиты" },
+			"title": { "ru": "Безлимиты" , "en": "Unlimits" },
 			"icon": "",
 			"param": {
 				"social": {
-					"title": { "ru": "Социальные сети" },
+					"title": { "ru": "Социальные сети" , "en": "Social network" },
 					"icon": "",
 					"link": [
 						"https://vk.com",
@@ -61,7 +61,7 @@
 					"cost": 5
 				},
 				"messanger": {
-					"title": { "ru": "Мессенджеры" },
+					"title": { "ru": "Мессенджеры" , "en": "Messangers" },
 					"icon": "",
 					"link": [
 						"https://telegram.org",
@@ -70,7 +70,7 @@
 					"cost": 5
 				},
 				"video": {
-					"title": { "ru": "Видеохостинги" },
+					"title": { "ru": "Видеохостинги" , "en": "Video hostings" },
 					"link": [
 						"http://youtube.com"
 					],
@@ -78,28 +78,28 @@
 					"cost": 5
 				},
 				"music": {
-					"title": { "ru": "Музыка" },
+					"title": { "ru": "Музыка" , "en": "Music" },
 					"icon": "",
 					"cost": 5
 				},
 				"games": {
-					"title": { "ru": "Игры" },
+					"title": { "ru": "Игры" , "en": "Games" },
 					"icon": "",
 					"cost": 5
 				}
 			}
 		},
 		"bonus": {
-			"title": { "ru": "Партнёрские программы" },
+			"title": { "ru": "Партнёрские программы" , "en": "Partner programs" },
 			"icon": "",
 			"param": {
 				"kafe": {
-					"title": { "ru": "Кафе и рестораны" },
+					"title": { "ru": "Кафе и рестораны" , "en": "Kafe & restaurant" },
 					"icon": "",
 					"cost": 5
 				},
 				"shop": {
-					"title": { "ru": "Магазины" },
+					"title": { "ru": "Магазины" , "en": "Shops" },
 					"icon": "",
 					"cost": 5
 				}
