@@ -368,6 +368,17 @@ $my_tele2 $mol_book2
 					rows <= tarif_list /
 					Empty <= Tarif_list_empty $mol_text
 						text \Тут будут все ваши тарифы, между которыми вы сможете быстро переключаться.
+				<= Scheme_list $mol_list
+					rows /
+						<= Smart_link $mol_link
+							arg * scheme \smart
+							title \Умная схема
+						<= Personal_link $mol_link
+							arg * scheme \personal
+							title \Ручная схема
+						<= Business_link $mol_link
+							arg * scheme \business
+							title \Корпоративная схема
 		<= Settings $my_tele2_settings
 			tools /
 				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2

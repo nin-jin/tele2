@@ -1,0 +1,80 @@
+{
+	"description": { "ru": "Никакого роуминга по России. Скорость всегда максимально возможная. \n\nБезлимитный трафик к сервисам-партнёрам: \n[](https://vk.com) [](https://www.facebook.com) [](https://ok.ru) [](https://www.instagram.com) [](https://telegram.org) [](https://whatsapp.com) [](https://www.viber.com) [](http://maps.ya.ru/) [](http://music.yandex.ru/) [](https://www.amediateka.ru) [](https://www.twitch.tv) [](https://tinder.com)" },
+	"currency": "₽",
+	"group": {
+		"main": {
+			"title": { "ru": "Пакеты" },
+			"icon": "",
+			"param": {
+				"people": {
+					"title": { "ru": "Число сотрудников" },
+					"unit": { "ru": "человек" },
+					"icon": "",
+					"default": "10",
+					"option": {
+						"10": { "title": "10", "cost": 50 },
+						"50": { "title": "50", "cost": 200 },
+						"100": { "title": "100", "cost": 400 },
+						"500": { "title": "500", "cost": 1000 },
+						"2000": { "title": "2000", "cost": 2000 }
+					}
+				},
+				"mobile": {
+					"title": { "ru": "Звонки" },
+					"unit": { "ru": "минут/день" },
+					"icon": "",
+					"default": "20",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"20": { "title": "20", "cost": 1 },
+						"40": { "title": "40", "cost": 2 },
+						"60": { "title": "60", "cost": 3 },
+						"120": { "title": "120", "cost": 4 }
+					}
+				},
+				"internet": {
+					"title": { "ru": "Интернет" },
+					"unit": { "ru": "Гигабайт/день" },
+					"icon": "",
+					"default": "5",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"1": { "title": "1", "cost": 1 },
+						"5": { "title": "5", "cost": 2 },
+						"10": { "title": "10", "cost": 3 },
+						"20": { "title": "20", "cost": 4 }
+					}
+				},
+				"sms": {
+					"title": { "ru": "SMS" },
+					"unit": { "ru": "штук/день" },
+					"icon": "",
+					"default": "100",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"100": { "title": "100", "cost": 1 },
+						"200": { "title": "200", "cost": 2 },
+						"400": { "title": "400", "cost": 3 },
+						"1000": { "title": "1000", "cost": 4 }
+					}
+				}
+			}
+		},
+		"bonus": {
+			"title": { "ru": "Особые услуги" },
+			"icon": "",
+			"param": {
+				"manager": {
+					"title": { "ru": "Выделенный менеджер" },
+					"cost": 50,
+					"icon": ""
+				},
+				"support": {
+					"title": { "ru": "Приоритетная поддержка" },
+					"cost": 50,
+					"icon": ""
+				}
+			}
+		}
+	}
+}

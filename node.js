@@ -6416,7 +6416,7 @@ var $;
         Menu() {
             return ((obj) => {
                 obj.title = () => "Личные тарифы";
-                obj.body = () => [this.Tarif_list()];
+                obj.body = () => [this.Tarif_list(), this.Scheme_list()];
                 return obj;
             })(new this.$.$mol_page());
         }
@@ -6435,6 +6435,39 @@ var $;
                 obj.text = () => "Тут будут все ваши тарифы, между которыми вы сможете быстро переключаться.";
                 return obj;
             })(new this.$.$mol_text());
+        }
+        Scheme_list() {
+            return ((obj) => {
+                obj.rows = () => [this.Smart_link(), this.Personal_link(), this.Business_link()];
+                return obj;
+            })(new this.$.$mol_list());
+        }
+        Smart_link() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "scheme": "smart",
+                });
+                obj.title = () => "Умная схема";
+                return obj;
+            })(new this.$.$mol_link());
+        }
+        Personal_link() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "scheme": "personal",
+                });
+                obj.title = () => "Ручная схема";
+                return obj;
+            })(new this.$.$mol_link());
+        }
+        Business_link() {
+            return ((obj) => {
+                obj.arg = () => ({
+                    "scheme": "business",
+                });
+                obj.title = () => "Корпоративная схема";
+                return obj;
+            })(new this.$.$mol_link());
         }
         Settings() {
             return ((obj) => {
@@ -6603,6 +6636,18 @@ var $;
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Tarif_list_empty", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Scheme_list", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Smart_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Personal_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_tele2.prototype, "Business_link", null);
     __decorate([
         $.$mol_mem
     ], $my_tele2.prototype, "Settings", null);
@@ -7819,7 +7864,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2] [mol_link] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_menu] {\n\tflex: 0 0 16rem;\n}\n\n[my_tele2_tarif_list] {\n\tpadding: .75rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: flex-start;\n}\n\n[my_tele2_tarif_list_empty] {\n\tpadding: 0;\n}\n\n[my_tele2_settings_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 60rem;\n}\n\n[my_tele2_settings_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_settings_head] {\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_settings_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n\n[my_tele2_partner] {\n\tmargin: -.5rem;\n}\n\n[my_tele2_param_flag] {\n\talign-items: baseline;\n}\n\n[my_tele2_param_flag_title] {\n\tmargin: 0 .5rem;\n}\n");
+    $.$mol_style_attach("my/tele2/tele2.view.css", "[mol_theme=\"$mol_theme_base\"] {\n\t--mol_theme_back: black;\n}\n\n[mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #FF59A3;\n\t--mol_theme_hover: #F050A0;\n}\n\n[my_tele2] [mol_button_typed] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2] [mol_link] {\n\tborder-radius: 2rem;\n}\n\n[my_tele2_menu] {\n\tflex: 0 0 16rem;\n}\n\n[my_tele2_menu_body] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tjustify-content: space-between;\n}\n\n[my_tele2_tarif_list] {\n\tpadding: .75rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: flex-start;\n}\n\n[my_tele2_tarif_list_empty] {\n\tpadding: 0;\n}\n\n[my_tele2_scheme_list] {\n\tpadding: .75rem;\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_logo] {\n\twidth: 40px;\n}\n\n[my_tele2_title] {\n\tjustify-content: center;\n}\n\n[my_tele2_settings] {\n\tflex: 1 0 60rem;\n}\n\n[my_tele2_settings_body] {\n\tpadding: .75rem;\n}\n\n[my_tele2_description] {\n\tmax-width: none;\n}\n\n[my_tele2_groups] {\n\tpadding: 0;\n\tjustify-content: space-evenly;\n\talign-content: space-evenly;\n}\n\n[my_tele2_group] {\n\tmargin: 0;\n\tflex: 0 0 20rem;\n}\n\n[my_tele2_group_title] {\n\tpadding: 0 .75rem;\n\tfont-weight: bolder;\n}\n\n[my_tele2_group_params] {\n\tdisplay: flex;\n\tflex-direction: column;\n\tpadding: .75rem 0;\n}\n\n[my_tele2_param_switch] {\n\tpadding: .5rem .75rem;\n}\n\n[my_tele2_order] {\n\tmargin: auto;\n}\n\n[my_tele2_settings_head] {\n\talign-items: flex-start;\n}\n\n[my_tele2_settings_foot] {\n\tpadding: .5rem;\n\tjustify-content: center;\n\talign-items: baseline;\n\tflex-wrap: wrap;\n}\n\n[my_tele2_settings_foot]>* {\n\tmargin: .25rem;\n}\n\n[my_tele2_daily] {\n\tfont-weight: bolder;\n}\n\n[my_tele2_partner] {\n\tmargin: -.5rem;\n}\n\n[my_tele2_param_flag] {\n\talign-items: baseline;\n}\n\n[my_tele2_param_flag_title] {\n\tmargin: 0 .5rem;\n}\n");
 })($ || ($ = {}));
 //tele2.view.css.js.map
 ;
@@ -7829,8 +7874,13 @@ var $;
     var $$;
     (function ($$) {
         class $my_tele2 extends $.$my_tele2 {
+            scheme_name() {
+                var _a;
+                return (_a = this.$.$mol_state_arg.value('scheme')) !== null && _a !== void 0 ? _a : 'smart';
+            }
             tarif_scheme() {
-                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json('my/tele2/personal.tarif.json'));
+                const uri = `my/tele2/${this.scheme_name()}.tarif.json`;
+                return $.$my_tele2_tarif_scheme(this.$.$mol_fetch.json(uri));
             }
             groups() {
                 return Object.keys(this.groups_scheme()).map(id => this.Group(id));

@@ -2057,6 +2057,10 @@ declare namespace $ {
         Tarif_list(): $$.$mol_list;
         tarif_list(): readonly any[];
         Tarif_list_empty(): $$.$mol_text;
+        Scheme_list(): $$.$mol_list;
+        Smart_link(): $$.$mol_link;
+        Personal_link(): $$.$mol_link;
+        Business_link(): $$.$mol_link;
         Settings(): $my_tele2_settings;
         Source(): $mol_link_source;
         Groups(): $mol_row;
@@ -3226,6 +3230,7 @@ declare namespace $ {
 
 declare namespace $.$$ {
     class $my_tele2 extends $.$my_tele2 {
+        scheme_name(): string;
         tarif_scheme(): Readonly<{
             description: {
                 [x: string]: string;

@@ -1,0 +1,65 @@
+{
+	"description": { "ru": "Никакого роуминга по России. При превышении суточного лимита автоматически приходит уведомление с предложением поднять лимит на 1 день. Скорость всегда максимально возможная. \n\nЕсли трафик к сервису-партнёру достигает 1₽ за день, то дальнейшее использование его в этот день будет бесплатным. Сервисы-партнёры: \n[](https://vk.com) [](https://www.facebook.com) [](https://ok.ru) [](https://www.instagram.com) [](https://telegram.org) [](https://whatsapp.com) [](https://www.viber.com) [](http://maps.ya.ru/) [](http://music.yandex.ru/) [](https://www.amediateka.ru) [](https://www.twitch.tv) [](https://tinder.com)" },
+	"currency": "₽",
+	"group": {
+		"main": {
+			"title": { "ru": "Пакеты" },
+			"icon": "",
+			"param": {
+				"mobile": {
+					"title": { "ru": "Звонки" },
+					"unit": { "ru": "минут/день" },
+					"icon": "",
+					"default": "20",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"20": { "title": "20", "cost": 1 },
+						"40": { "title": "40", "cost": 2 },
+						"60": { "title": "60", "cost": 3 },
+						"120": { "title": "120", "cost": 4 }
+					}
+				},
+				"internet": {
+					"title": { "ru": "Интернет" },
+					"unit": { "ru": "Гигабайт/день" },
+					"icon": "",
+					"default": "5",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"1": { "title": "1", "cost": 1 },
+						"5": { "title": "5", "cost": 2 },
+						"10": { "title": "10", "cost": 3 },
+						"20": { "title": "20", "cost": 4 }
+					}
+				},
+				"sms": {
+					"title": { "ru": "SMS" },
+					"unit": { "ru": "штук/день" },
+					"icon": "",
+					"default": "100",
+					"option": {
+						"0": { "title": "0", "cost": 0 },
+						"100": { "title": "100", "cost": 1 },
+						"200": { "title": "200", "cost": 2 },
+						"400": { "title": "400", "cost": 3 },
+						"1000": { "title": "1000", "cost": 4 }
+					}
+				}
+			}
+		},
+		"bonus": {
+			"title": { "ru": "Партнёрские программы" },
+			"icon": "",
+			"param": {
+				"kafe": {
+					"title": { "ru": "Кафе и рестораны" },
+					"icon": ""
+				},
+				"shop": {
+					"title": { "ru": "Магазины" },
+					"icon": ""
+				}
+			}
+		}
+	}
+}
