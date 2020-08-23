@@ -7,6 +7,8 @@ $my_tele2_settings $mol_page
 
 $my_tele2 $mol_book2
 	tarif_name_default @ \Custom tarif
+	plugins /
+		<= Theme $mol_theme_auto
 	pages /
 		<= Menu $mol_page
 			title <= menu_title @ \Personal tarif
@@ -28,6 +30,7 @@ $my_tele2 $mol_book2
 							title <= business_link_title @ \Business scheme
 		<= Settings $my_tele2_settings
 			tools /
+				<= Lights $mol_lights_toggle
 				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
 			body /
 				<= Groups $mol_row
