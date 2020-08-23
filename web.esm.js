@@ -6578,7 +6578,7 @@ var $;
             })(new this.$.$mol_button_major());
         }
         order_title() {
-            return "Switch";
+            return this.$.$mol_locale.text("$my_tele2_order_title");
         }
         order_enabled() {
             return true;
