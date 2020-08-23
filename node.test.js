@@ -8014,6 +8014,7 @@ var $;
                 this.settings_id(tarif);
                 const all = this.tarif_all();
                 this.tarif_all(Object.assign(Object.assign({}, all), { [tarif]: (_a = all[tarif]) !== null && _a !== void 0 ? _a : this.tarif_name_default() }));
+                this.tarif_current(tarif);
             }
             user_id() {
                 let id = this.$.$mol_state_local.value('user_id');
