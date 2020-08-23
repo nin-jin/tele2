@@ -7865,6 +7865,8 @@ var $;
             param_title(id) {
                 const param = this.params()[id];
                 let title = this.$.$my_tele2_locale(param.title);
+                if (param.cost)
+                    title += ` (+${param.cost}${this.currency()})`;
                 if (param.unit)
                     title += ` (${this.$.$my_tele2_locale(param.unit)})`;
                 return title;
