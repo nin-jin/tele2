@@ -6,9 +6,15 @@ $my_tele2_settings $mol_page
 		<= Tools
 
 $my_tele2 $mol_book2
+	tarif_name_default \Индивидуальный тариф
 	pages /
 		<= Menu $mol_page
 			title \Личные тарифы
+			body /
+				<= Tarif_list $mol_list
+					rows <= tarif_list /
+					Empty <= Tarif_list_empty $mol_text
+						text \Тут будут все ваши тарифы, между которыми вы сможете быстро переключаться.
 		<= Settings $my_tele2_settings
 			tools /
 				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
@@ -31,6 +37,7 @@ $my_tele2 $mol_book2
 						\ за 30 дней
 				<= Order $mol_button_major
 					title <= order_title \Перейти
+					enabled <= order_enabled true
 					click?event <=> order?event null
 	-
 	Group!id $my_tele2_group
@@ -56,4 +63,7 @@ $my_tele2 $mol_book2
 		target \_blank
 		uri <= partner_uri!uri \
 		minimal_height 0
-
+	-
+	Tarif_link!id $mol_link
+		title <= tarif_name!id \
+		arg * tarif <= tarif_id!id \

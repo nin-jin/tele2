@@ -142,26 +142,102 @@ namespace $.$$ {
 
 		@ $mol_mem
 		settings_id( next? : string ) {
-			return this.$.$mol_state_arg.value( 'settings' , next ) ?? $mol_stub_code()
+
+			const all = this.tarif_all()
+			const id = this.$.$mol_state_arg.value( 'tarif' , next )
+			
+			if( id ) {
+				return id
+			} else {
+				const id2 = Object.keys( all )[0] ?? $mol_stub_code()
+				new $mol_after_tick( ()=> this.$.$mol_state_arg.value( 'tarif' , id2 ) )
+				return id2
+			}
+
 		}
 
 		@ $mol_mem_key
 		settings( id : string , next?: Record< string , string | boolean > ) {
-			return $mol_shared.cache( `settings=${id}` , next ) ?? {}
+			return $mol_shared.cache( `tarif=${id}` , next ) ?? {}
 		}
 
 		settings_current( next?: Record< string , string | boolean > ) {
 			return this.settings( this.settings_id() , next )
 		}
 
-		@ $mol_fiber.method
-		order() {
+		@ $mol_mem
+		settings_next() {
+			
 			const settings = {} as Record< string , string | boolean >
+			
 			for( const param in this.params() ) {
 				settings[ param ] = this.param_value( param )
 			}
+
+			return settings
+		}
+
+		@ $mol_mem
+		order_enabled() {
+			if( !this.tarif_all()[ this.tarif_current() ] ) return true
+			return !$mol_compare_deep( this.settings_current() , this.settings_next() )
+		}
+
+		@ $mol_fiber.method
+		order() {
+
+			const settings = this.settings_next()
 			this.settings_current( settings )
-			this.settings_id( this.settings_id() )
+			
+			const tarif = this.settings_id()
+			this.settings_id( tarif )
+
+			const all = this.tarif_all()
+			this.tarif_all({
+				... all ,
+				[ tarif ]: all[ tarif ] ?? this.tarif_name_default()
+			})
+			
+		}
+
+		@ $mol_mem
+		user_id() {
+
+			let id = this.$.$mol_state_local.value( 'user_id' )
+			if( id ) return id as string
+			
+			id = $mol_stub_code()
+
+			new $mol_after_tick( ()=> {
+				this.$.$mol_state_local.value( 'user_id' , id )
+			} )
+
+			return id
+		}
+
+		@ $mol_mem
+		tarif_all( next?: Record< string , string > ) {
+			const uri = `user=${ this.user_id() }/tarif/all`
+			return $mol_shared.cache( uri , next ? { tarifs : next } : undefined ).tarifs ?? {}
+		}
+
+		@ $mol_mem
+		tarif_current( next?: string ) {
+			const uri = `user=${ this.user_id() }/tarif/active`
+			return $mol_shared.cache( uri , next ? { active : next } : undefined ).active ?? null
+		}
+
+		@ $mol_mem
+		tarif_list() {
+			return Object.keys( this.tarif_all() ).map( id => this.Tarif_link( id ) )
+		}
+
+		tarif_id( id : string ) {
+			return id
+		}
+
+		tarif_name( id : string ) {
+			return this.tarif_all()[ id ]
 		}
 
 	}

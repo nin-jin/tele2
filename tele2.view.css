@@ -11,8 +11,23 @@
 	border-radius: 2rem;
 }
 
+[my_tele2] [mol_link] {
+	border-radius: 2rem;
+}
+
 [my_tele2_menu] {
 	flex: 0 0 16rem;
+}
+
+[my_tele2_tarif_list] {
+	padding: .75rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+[my_tele2_tarif_list_empty] {
+	padding: 0;
 }
 
 [my_tele2_settings_logo] {
