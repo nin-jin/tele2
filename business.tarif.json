@@ -8,7 +8,6 @@
 			"param": {
 				"people": {
 					"title": { "ru": "Число сотрудников" },
-					"unit": { "ru": "человек" },
 					"icon": "",
 					"default": "10",
 					"option": {
