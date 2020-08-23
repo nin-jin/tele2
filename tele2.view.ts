@@ -203,6 +203,7 @@ namespace $.$$ {
 				... all ,
 				[ tarif ]: all[ tarif ] ?? this.tarif_name_default()
 			})
+			this.tarif_current( tarif )
 			
 		}
 
