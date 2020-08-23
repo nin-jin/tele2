@@ -1,31 +1,31 @@
 $my_tele2_settings $mol_page
-	title \Настрой Tele2 под себя
+	title @ \Configure Tele2 for yourself
 	head /
 		<= Logo $mol_image uri \my/tele2/logo/logo_128.png
 		<= Title
 		<= Tools
 
 $my_tele2 $mol_book2
-	tarif_name_default \Индивидуальный тариф
+	tarif_name_default @ \Custom tarif
 	pages /
 		<= Menu $mol_page
-			title \Личные тарифы
+			title <= menu_title @ \Personal tarif
 			body /
 				<= Tarif_list $mol_list
 					rows <= tarif_list /
 					Empty <= Tarif_list_empty $mol_text
-						text \Тут будут все ваши тарифы, между которыми вы сможете быстро переключаться.
+						text <= tarif_list_empty \Your tarifs will be placed here.
 				<= Scheme_list $mol_list
 					rows /
 						<= Smart_link $mol_link
 							arg * scheme \smart
-							title \Умная схема
+							title <= smart_link_title @ \Smart scheme
 						<= Personal_link $mol_link
 							arg * scheme \personal
-							title \Ручная схема
+							title <= personal_link_title @ \Manual scheme
 						<= Business_link $mol_link
 							arg * scheme \business
-							title \Корпоративная схема
+							title <= business_link_title @ \Business scheme
 		<= Settings $my_tele2_settings
 			tools /
 				<= Source $mol_link_source uri \https://github.com/nin-jin/tele2
@@ -39,15 +39,15 @@ $my_tele2 $mol_book2
 					sub /
 						<= daily 0
 						<= currency \
-						\ в день
-				\ или 
+						<= daily_suffix @ \ per day
+				<= label_or @ \ or 
 				<= Monthly $mol_view
 					sub /
 						<= monthly 0
 						<= currency \
-						\ за 30 дней
+						<= monthly_suffix \ for 30 days
 				<= Order $mol_button_major
-					title <= order_title \Перейти
+					title <= order_title \Switch
 					enabled <= order_enabled true
 					click?event <=> order?event null
 	-
